@@ -1,0 +1,25 @@
+{
+    "name": "Template",
+    "description": "This is a template of a configuration",
+    "filePattern": "([a-z]+)\\.{*_version_*}\\.min\\.js",
+    "inputDir": "/path/to/your/js",
+    "outputDir": "/path/to/your/js/min",
+    "compositions":[
+	{
+	    "compressor": "yui",
+	    "outputName": "bazinga.min.{version|md5}.js",
+	    "fileset": [
+		"main.js",
+		"object.js"
+	    ]
+	},
+	{
+	    "compressor": "closure",
+	    "outputName": "dance.min.{version|nr}.js",
+	    "fileset": [
+		"dancing.js",
+		"party.js"
+	    ]
+	}
+    ]
+}

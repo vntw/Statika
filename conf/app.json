@@ -1,0 +1,14 @@
+{
+    "compressors": [
+	{
+	    "key": "yui",
+	    "map": "YuiCompressor",
+	    "path": "/path/to/yuicompressor-2.4.7.jar"
+	},
+	{
+	    "key": "closure",
+	    "map": "GoogleClosureCompressor",
+	    "path": "/path/to/googleclosurecompiler.jar"
+	}
+    ]
+}
