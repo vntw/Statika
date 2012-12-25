@@ -17,12 +17,13 @@ use Statika\Configuration\Application\ApplicationConfiguration;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class JsonApplicationConfiguration extends ApplicationConfiguration {
+class JsonApplicationConfiguration extends ApplicationConfiguration
+{
+    public function fromFile(File $configFile)
+    {
+        $this->assignFromHash(json_decode(file_get_contents($configFile->getRealPath()), true));
 
-	public function fromFile(File $configFile) {
-		$this->assignFromHash(json_decode(file_get_contents($configFile->getRealPath()), true));
-
-		return $this;
-	}
+        return $this;
+    }
 
 }

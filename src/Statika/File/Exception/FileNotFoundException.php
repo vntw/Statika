@@ -9,16 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Statika;
+namespace Statika\File\Exception;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
- * @todo implement
  */
-class Compiler
-{
-    public function compile()
-    {
-    }
-
-}
+class FileNotFoundException extends \Exception {}

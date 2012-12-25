@@ -12,25 +12,26 @@
 namespace Statika\Configuration;
 
 use Statika\File\File;
-use Statika\Configuration\Validator;
+use Statika\Configuration\Validator\ValidatorInterface;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-abstract class Configuration {
+abstract class Configuration
+{
+    /**
+     *
+     * @param  \Statika\Configuration\Validator $validator
+     * @return bool
+     */
+    public function validate(ValidatorInterface $validator)
+    {
+        return $validator->validate($this);
+    }
 
-	/**
-	 * 
-	 * @param \Statika\Configuration\Validator $validator
-	 * @return bool
-	 */
-	public function validate(Validator $validator) {
-		return $validator->validate($this);
-	}
-
-	/**
-	 * 
-	 * @return \Statika\Configuration\Configuration
-	 */
-	abstract public function fromFile(File $configFile);
+    /**
+     *
+     * @return \Statika\Configuration\Configuration
+     */
+    abstract public function fromFile(File $configFile);
 }

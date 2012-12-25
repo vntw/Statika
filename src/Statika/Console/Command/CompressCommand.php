@@ -14,7 +14,7 @@ namespace Statika\Console\Command;
 use Statika\File\File;
 use Statika\Compressor;
 use Statika\Configuration\Composition;
-use \Statika\Exception\FileNotFoundException;
+use Statika\File\Exception\FileNotFoundException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,42 +23,44 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class CompressCommand extends Command {
+class CompressCommand extends Command
+{
+    protected function configure()
+    {
+        $this->setName('compress')
+                ->addArgument('config', InputArgument::REQUIRED, 'The config file to validate');
+    }
 
-	protected function configure() {
-		$this->setName('compress')
-				->addArgument('config', InputArgument::REQUIRED, 'The config file to validate');
-	}
+    /**
+     *
+     * @param  \Symfony\Component\Console\Input\InputInterface   $input
+     * @param  \Symfony\Component\Console\Output\OutputInterface $output
+     * @throws \InvalidArgumentException
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $config = $input->getArgument('config');
 
-	/**
-	 * 
-	 * @param \Symfony\Component\Console\Input\InputInterface $input
-	 * @param \Symfony\Component\Console\Output\OutputInterface $output
-	 * @throws \InvalidArgumentException
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output) {
-		$config = $input->getArgument('config');
+        if (!file_exists($config)) {
+            throw new FileNotFoundException('Config file ' . $config . ' not found!');
+        }
 
-		if (!file_exists($config)) {
-			throw new FileNotFoundException('Config file ' . $config . ' not found!');
-		}
+        $configFile = new File($config);
 
-		$configFile = new File($config);
+        if ($configFile->isReadable()) {
+            switch ($configFile->getExtension()) {
+                case 'json':
+                    $config = new Composition\JsonCompositionConfiguration();
+                    break;
+                default:
+                    throw new \InvalidArgumentException('No handler for config type ' . $configFile->getExtension() . ' available!');
+            }
 
-		if ($configFile->isReadable()) {
-			switch ($configFile->getExtension()) {
-				case 'json':
-					$config = new Composition\JsonCompositionConfiguration();
-					break;
-				default:
-					throw new \InvalidArgumentException('No handler for config type ' . $configFile->getExtension() . ' available!');
-			}
+            $config->fromFile($configFile);
 
-			$config->fromFile($configFile);
-
-			$compressManager = new Compressor\Manager($config, $output, $input);
-			$compressManager->handle();
-		}
-	}
+            $compressManager = new Compressor\Manager($config, $output, $input);
+            $compressManager->handle();
+        }
+    }
 
 }

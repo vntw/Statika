@@ -16,28 +16,30 @@ use Statika\Compressor\Compressor;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-abstract class BinaryCompressor extends Compressor {
+abstract class BinaryCompressor extends Compressor
+{
+    /**
+     *
+     * @var string
+     */
+    protected $binaryPath;
 
-	/**
-	 *
-	 * @var string
-	 */
-	protected $binaryPath;
+    /**
+     *
+     * @return string
+     */
+    public function getBinaryPath()
+    {
+        return $this->binaryPath;
+    }
 
-	/**
-	 * 
-	 * @return string
-	 */
-	public function getBinaryPath() {
-		return $this->binaryPath;
-	}
-
-	/**
-	 * 
-	 * @param string $binaryPath
-	 */
-	public function setBinaryPath($binaryPath) {
-		$this->binaryPath = $binaryPath;
-	}
+    /**
+     *
+     * @param string $binaryPath
+     */
+    public function setBinaryPath($binaryPath)
+    {
+        $this->binaryPath = $binaryPath;
+    }
 
 }

@@ -9,9 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Statika\Exception;
+namespace Statika\Configuration\Validator;
+
+use Statika\Configuration\Configuration;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class FileNotFoundException extends \Exception {}
+interface ValidatorInterface
+{
+    public function getError();
+
+    public function validate(Configuration $config);
+}

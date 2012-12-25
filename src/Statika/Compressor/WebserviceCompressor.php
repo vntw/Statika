@@ -16,28 +16,30 @@ use Statika\Compressor\Compressor;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-abstract class WebserviceCompressor extends Compressor {
+abstract class WebserviceCompressor extends Compressor
+{
+    /**
+     *
+     * @var string
+     */
+    protected $serviceUrl;
 
-	/**
-	 *
-	 * @var string
-	 */
-	protected $serviceUrl;
+    /**
+     *
+     * @return string
+     */
+    public function getServiceUrl()
+    {
+        return $this->serviceUrl;
+    }
 
-	/**
-	 * 
-	 * @return string
-	 */
-	public function getServiceUrl() {
-		return $this->serviceUrl;
-	}
-
-	/**
-	 * 
-	 * @param string $serviceUrl
-	 */
-	public function setServiceUrl($serviceUrl) {
-		$this->serviceUrl = $serviceUrl;
-	}
+    /**
+     *
+     * @param string $serviceUrl
+     */
+    public function setServiceUrl($serviceUrl)
+    {
+        $this->serviceUrl = $serviceUrl;
+    }
 
 }

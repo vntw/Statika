@@ -16,31 +16,33 @@ use Statika\Configuration\Application\ApplicationConfiguration;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class Statika {
+class Statika
+{
+    const VERSION = '1.0';
+    const CLI_NAME = 'Statika CLI Application';
 
-	const VERSION = '1.0';
-	const CLI_NAME = 'Statika CLI Application';
+    /**
+     *
+     * @var \Statika\Configuration\Application\ApplicationConfiguration
+     */
+    protected static $config;
 
-	/**
-	 *
-	 * @var \Statika\Configuration\Application\ApplicationConfiguration
-	 */
-	protected static $config;
+    /**
+     *
+     * @param \Statika\Configuration\Application\ApplicationConfiguration $config
+     */
+    public static function setConfig(ApplicationConfiguration $config)
+    {
+        self::$config = $config;
+    }
 
-	/**
-	 * 
-	 * @param \Statika\Configuration\Application\ApplicationConfiguration $config
-	 */
-	public static function setConfig(ApplicationConfiguration $config) {
-		self::$config = $config;
-	}
-
-	/**
-	 * 
-	 * @return \Statika\Configuration\Application\ApplicationConfiguration
-	 */
-	public static function getConfig() {
-		return self::$config;
-	}
+    /**
+     *
+     * @return \Statika\Configuration\Application\ApplicationConfiguration
+     */
+    public static function getConfig()
+    {
+        return self::$config;
+    }
 
 }

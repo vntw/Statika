@@ -13,30 +13,31 @@ namespace Statika\Compressor;
 
 use Statika\Compressor\WebserviceCompressor;
 use Statika\File\File;
-use Statika\File\FileAggregator;
 use Statika\Version\Version;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  * @todo implement
  */
-class UglifyJsCompressor extends WebserviceCompressor {
+class UglifyJsCompressor extends WebserviceCompressor
+{
+    /**
+     * CTOR
+     */
+    public function __construct()
+    {
+        $this->name = 'uglifyjs';
+    }
 
-	/**
-	 * CTOR
-	 */
-	public function __construct() {
-		$this->name = 'uglifyjs';
-	}
-
-	/**
-	 * 
-	 * @param \Statika\Version\Version $version
-	 * @return null
-	 * @throws \InvalidArgumentException
-	 */
-	public function compress(Version $version) {
-		// use http api @ http://marijnhaverbeke.nl/uglifyjs
-	}
+    /**
+     *
+     * @param  \Statika\Version\Version  $version
+     * @return null
+     * @throws \InvalidArgumentException
+     */
+    public function compress(Version $version)
+    {
+        // use http api @ http://marijnhaverbeke.nl/uglifyjs
+    }
 
 }

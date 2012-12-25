@@ -9,7 +9,7 @@ use \Statika\Exception\FileNotFoundException;
 $config = __DIR__ . DIRECTORY_SEPARATOR . '../conf/app.json';
 
 if (!file_exists($config)) {
-	throw new FileNotFoundException('Can´t find application configuration');
+    throw new FileNotFoundException('Can´t find application configuration');
 }
 
 $configFile = new File($config);

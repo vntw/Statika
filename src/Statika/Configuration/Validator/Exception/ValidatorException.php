@@ -9,16 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Statika;
+namespace Statika\Configuration\Validator\Exception;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
- * @todo implement
  */
-class Compiler
-{
-    public function compile()
-    {
-    }
-
-}
+abstract class ValidatorException extends \Exception {}

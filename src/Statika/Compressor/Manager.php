@@ -21,89 +21,95 @@ use Symfony\Component\Console\Input\InputInterface;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class Manager {
+class Manager
+{
+    /**
+     *
+     * @var \Symfony\Component\Console\Input\InputInterface
+     */
+    private $input;
 
-	/**
-	 *
-	 * @var \Symfony\Component\Console\Input\InputInterface
-	 */
-	private $input;
+    /**
+     *
+     * @var \Symfony\Component\Console\Output\OutputInterface
+     */
+    private $output;
 
-	/**
-	 *
-	 * @var \Symfony\Component\Console\Output\OutputInterface
-	 */
-	private $output;
+    /**
+     *
+     * @var \Statika\Configuration\Configuration
+     */
+    private $configuration;
 
-	/**
-	 *
-	 * @var \Statika\Configuration\Configuration
-	 */
-	private $configuration;
+    /**
+     * CTOR
+     *
+     * @param \Statika\Configuration\Configuration              $config
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     */
+    public function __construct(Configuration $config, OutputInterface $output, InputInterface $input)
+    {
+        $this->configuration = $config;
+        $this->input = $input;
+        $this->output = $output;
+    }
 
-	/**
-	 * CTOR
-	 * 
-	 * @param \Statika\Configuration\Configuration $config
-	 * @param \Symfony\Component\Console\Output\OutputInterface $output
-	 */
-	public function __construct(Configuration $config, OutputInterface $output, InputInterface $input) {
-		$this->configuration = $config;
-		$this->input = $input;
-		$this->output = $output;
-	}
+    /**
+     *
+     * @return \Symfony\Component\Console\Output\OutputInterface
+     */
+    public function getOutput()
+    {
+        return $this->output;
+    }
 
-	/**
-	 * 
-	 * @return \Symfony\Component\Console\Output\OutputInterface
-	 */
-	public function getOutput() {
-		return $this->output;
-	}
+    /**
+     *
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     */
+    public function setOutput(OutputInterface $output)
+    {
+        $this->output = $output;
+    }
 
-	/**
-	 * 
-	 * @param \Symfony\Component\Console\Output\OutputInterface $output
-	 */
-	public function setOutput(OutputInterface $output) {
-		$this->output = $output;
-	}
+    /**
+     *
+     * @return \Statika\Configuration\Configuration
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
+    }
 
-	/**
-	 * 
-	 * @return \Statika\Configuration\Configuration
-	 */
-	public function getConfiguration() {
-		return $this->configuration;
-	}
+    /**
+     *
+     * @param \Statika\Configuration\Configuration $configuration
+     */
+    public function setConfiguration(Configuration $configuration)
+    {
+        $this->configuration = $configuration;
+    }
 
-	/**
-	 * 
-	 * @param \Statika\Configuration\Configuration $configuration
-	 */
-	public function setConfiguration(Configuration $configuration) {
-		$this->configuration = $configuration;
-	}
+    /**
+     * Handle the config filesets
+     */
+    public function handle()
+    {
+        foreach ($this->configuration->getFileSets() as $fileSet) {
+            $versionHandler = Version::parseVersionHandler($fileSet->getOutputName());
 
-	/**
-	 * Handle the config filesets
-	 */
-	public function handle() {
-		foreach ($this->configuration->getFileSets() as $fileSet) {
-			$versionHandler = Version::parseVersionHandler($fileSet->getOutputName());
+            $version = $versionHandler->getVersionForFile($fileSet->getOutputName(), $this->configuration->getOutputDir());
+            $version->increaseVersion();
 
-			$version = $versionHandler->getVersionForFile($fileSet->getOutputName(), $this->configuration->getOutputDir());
-			$version->increaseVersion();
+            $compressor = Compressor\Compressor::getCompressor($fileSet->getCompressorKey());
+            $compressor->setManager($this);
+            $compressor->setAggregator(new FileAggregator($fileSet));
+            $compressor->compress($version);
 
-			$compressor = Compressor\Compressor::getCompressor($fileSet->getCompressorKey());
-			$compressor->setManager($this);
-			$compressor->setAggregator(new FileAggregator($fileSet));
-			$compressor->compress($version);
-
-			$this->output->writeln(
-					sprintf('<info>Successfully compressed the fileset! You saved %s%% in filesize!</info>', $compressor->calculateByteAdvantage())
-			);
-		}
-	}
+            $this->output->writeln(
+                    sprintf('<info>Successfully compressed the fileset! You saved %s%% in filesize!</info>', $compressor->calculateByteAdvantage())
+            );
+        }
+    }
 
 }

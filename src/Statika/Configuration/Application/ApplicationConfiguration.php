@@ -16,24 +16,26 @@ use Statika\Configuration\Configuration;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-abstract class ApplicationConfiguration extends Configuration {
+abstract class ApplicationConfiguration extends Configuration
+{
+    protected $compressors = array();
 
-	protected $compressors = array();
+    /**
+     *
+     * @return Statika\Compressor\Compressor
+     */
+    public function getCompressors()
+    {
+        return $this->compressors;
+    }
 
-	/**
-	 * 
-	 * @return Statika\Compressor\Compressor
-	 */
-	public function getCompressors() {
-		return $this->compressors;
-	}
-
-	/**
-	 * 
-	 * @param array $hash
-	 */
-	public function assignFromHash(array $hash) {
-		$this->compressors = $hash['compressors'];
-	}
+    /**
+     *
+     * @param array $hash
+     */
+    public function assignFromHash(array $hash)
+    {
+        $this->compressors = $hash['compressors'];
+    }
 
 }

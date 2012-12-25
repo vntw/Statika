@@ -14,7 +14,7 @@ namespace Statika\File;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-abstract class Aggregator {
-
-	abstract public function aggregate();
+abstract class Aggregator
+{
+    abstract public function aggregate();
 }

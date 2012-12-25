@@ -16,38 +16,42 @@ use Statika\Version\Version;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class VersionMD5 extends Version {
+class VersionMD5 extends Version
+{
+    /**
+     *
+     * @return string
+     */
+    public function getKey()
+    {
+        return 'version|md5';
+    }
 
-	/**
-	 * 
-	 * @return string
-	 */
-	public function getKey() {
-		return 'version|md5';
-	}
+    public function increaseVersion()
+    {
+        $this->version = md5(rand(1000, 99999) . uniqid() . time() . microtime());
+    }
 
-	public function increaseVersion() {
-		$this->version = md5(rand(1000, 99999) . uniqid() . time() . microtime());
-	}
+    /**
+     *
+     * @return string
+     */
+    public function getRegexp()
+    {
+        return '[0-9a-f]{32}';
+    }
 
-	/**
-	 * 
-	 * @return string
-	 */
-	public function getRegexp() {
-		return '[0-9a-f]{32}';
-	}
+    /**
+     *
+     * @param  string                      $file
+     * @param  string                      $outputDir
+     * @return \Statika\Version\VersionMD5
+     */
+    public function getVersionForFile($file, $outputDir)
+    {
+        $this->filePattern = $file;
 
-	/**
-	 * 
-	 * @param string $file
-	 * @param string $outputDir
-	 * @return \Statika\Version\VersionMD5
-	 */
-	public function getVersionForFile($file, $outputDir) {
-		$this->filePattern = $file;
-
-		return $this;
-	}
+        return $this;
+    }
 
 }

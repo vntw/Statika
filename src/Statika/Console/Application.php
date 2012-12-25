@@ -18,15 +18,16 @@ use Symfony\Component\Console\Application as ConsoleApplication;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class Application extends ConsoleApplication {
+class Application extends ConsoleApplication
+{
+    public function __construct()
+    {
+        parent::__construct(Statika::CLI_NAME, Statika::VERSION);
 
-	public function __construct() {
-		parent::__construct(Statika::CLI_NAME, Statika::VERSION);
-
-		$this->addCommands(array(
-			new Command\ValidateConfigCommand(),
-			new Command\CompressCommand()
-		));
-	}
+        $this->addCommands(array(
+            new Command\ValidateConfigCommand(),
+            new Command\CompressCommand()
+        ));
+    }
 
 }
