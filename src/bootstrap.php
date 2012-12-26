@@ -4,7 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use \Statika\File\File;
 use \Statika\Configuration\Application\JsonApplicationConfiguration;
-use \Statika\Exception\FileNotFoundException;
+use \Statika\File\Exception\FileNotFoundException;
 
 $config = __DIR__ . DIRECTORY_SEPARATOR . '../conf/app.json';
 
