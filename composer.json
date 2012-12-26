@@ -20,5 +20,5 @@
             "Statika" : "src"
         }
     },
-    "bin": ["bin/composer"]
+    "bin": ["bin/statika"]
 }
