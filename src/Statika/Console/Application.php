@@ -25,7 +25,7 @@ class Application extends ConsoleApplication
         parent::__construct(Statika::CLI_NAME, Statika::VERSION);
 
         $this->addCommands(array(
-            new Command\ValidateConfigCommand(),
+            new Command\ValidateCommand(),
             new Command\CompressCommand()
         ));
     }

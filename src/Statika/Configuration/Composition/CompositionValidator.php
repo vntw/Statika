@@ -9,38 +9,24 @@
  * file that was distributed with this source code.
  */
 
-namespace Statika\Configuration\Validator;
+namespace Statika\Configuration\Composition;
 
-use Statika\Configuration\Configuration;
+use Statika\Configuration\Composition\CompositionConfiguration;
 use Statika\File\Exception\FileNotFoundException;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class FileExistsValidator implements ValidatorInterface
+class CompositionValidator
 {
-    /**
-     *
-     * @var string
-     */
-    protected $error;
 
     /**
      *
-     * @return string
-     */
-    public function getError()
-    {
-        return $this->error;
-    }
-
-    /**
-     *
-     * @param  \Statika\Configuration\Configuration $config
+     * @param  Statika\Configuration\Composition\CompositionConfiguration $config
      * @return bool
      * @throws FileNotFoundException
      */
-    public function validate(Configuration $config)
+    public function validate(CompositionConfiguration $config)
     {
         foreach ($config->getFileSets() as $fileSet) {
             /* @var $fileSet Statika\File\FileSet */

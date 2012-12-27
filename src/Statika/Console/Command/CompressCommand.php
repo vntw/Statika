@@ -28,7 +28,8 @@ class CompressCommand extends Command
     protected function configure()
     {
         $this->setName('compress')
-                ->addArgument('config', InputArgument::REQUIRED, 'The config file to validate');
+                ->setDescription('Compresses a given composition config')
+                ->addArgument('config', InputArgument::REQUIRED, 'The config file to compress');
     }
 
     /**
@@ -47,20 +48,18 @@ class CompressCommand extends Command
 
         $configFile = new File($config);
 
-        if ($configFile->isReadable()) {
-            switch ($configFile->getExtension()) {
-                case 'json':
-                    $config = new Composition\JsonCompositionConfiguration();
-                    break;
-                default:
-                    throw new \InvalidArgumentException('No handler for config type ' . $configFile->getExtension() . ' available!');
-            }
-
-            $config->fromFile($configFile);
-
-            $compressManager = new Compressor\Manager($config, $output, $input);
-            $compressManager->handle();
+        switch ($configFile->getExtension()) {
+            case 'json':
+                $config = new Composition\JsonCompositionConfiguration();
+                break;
+            default:
+                throw new \InvalidArgumentException('No handler for config type ' . $configFile->getExtension() . ' available!');
         }
+
+        $config->fromFile($configFile);
+
+        $compressManager = new Compressor\Manager($config, $output, $input);
+        $compressManager->handle();
     }
 
 }

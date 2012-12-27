@@ -48,7 +48,7 @@ abstract class CompositionConfiguration extends Configuration
      *
      * @var \Statika\File\FileSet[]
      */
-    protected $fileSets;
+    protected $fileSets = array();
 
     /**
      *

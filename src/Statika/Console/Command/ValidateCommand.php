@@ -13,8 +13,7 @@ namespace Statika\Console\Command;
 
 use Statika\File\File;
 use Statika\Configuration\Composition\JsonCompositionConfiguration;
-use Statika\Configuration\Validator\Exception\ValidatorException;
-use Statika\Configuration\Validator\FileExistsValidator;
+use Statika\Configuration\Composition\CompositionValidator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,11 +22,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class ValidateConfigCommand extends Command
+class ValidateCommand extends Command
 {
     protected function configure()
     {
         $this->setName('validate')
+                ->setDescription('Validates a given composition config')
                 ->addArgument('config', InputArgument::REQUIRED, 'The config file to validate');
     }
 
@@ -40,20 +40,28 @@ class ValidateConfigCommand extends Command
     {
         $config = $input->getArgument('config');
 
-        if (file_exists($config)) {
-            $configFile = new File($config);
+        if (!file_exists($config)) {
+            throw new FileNotFoundException('Config file ' . $config . ' not found!');
+        }
 
-            if ($configFile->isReadable()) {
+        $configFile = new File($config);
+
+        switch ($configFile->getExtension()) {
+            case 'json':
                 $config = new JsonCompositionConfiguration();
-                $config->fromFile($configFile);
+                break;
+            default:
+                throw new \InvalidArgumentException('No handler for config type ' . $configFile->getExtension() . ' available!');
+        }
 
-                try {
-                    $config->validate(new FileExistsValidator());
-                    $output->writeln('<info>Successfully validated the config file!</info>');
-                } catch (ValidatorException $exc) {
-                    $output->writeln('<error>' . $exc->getMessage() . '</error>');
-                }
-            }
+        $config->fromFile($configFile);
+        $validator = new CompositionValidator();
+
+        try {
+            $validator->validate($config);
+            $output->writeln('<info>Successfully validated the config file!</info>');
+        } catch (\Exception $exc) {
+            $output->writeln('<error>' . $exc->getMessage() . '</error>');
         }
     }
 

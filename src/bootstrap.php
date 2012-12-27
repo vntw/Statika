@@ -2,16 +2,11 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use \Statika\File\File;
-use \Statika\Configuration\Application\JsonApplicationConfiguration;
-use \Statika\File\Exception\FileNotFoundException;
+// Load application config
+include __DIR__ . DIRECTORY_SEPARATOR . 'config.php';
 
-$config = __DIR__ . DIRECTORY_SEPARATOR . '../conf/app.json';
-
-if (!file_exists($config)) {
-    throw new FileNotFoundException('Can´t find application configuration');
+if (!($config instanceof Statika\Configuration\Application\ApplicationConfiguration)) {
+    die('The config.php has to return an instance of Statika\Configuration\Application\ApplicationConfiguration!' . PHP_EOL);
 }
 
-$configFile = new File($config);
-$jsonConfig = new JsonApplicationConfiguration();
-Statika\Statika::setConfig($jsonConfig->fromFile($configFile));
+Statika\Statika::setConfig($config);

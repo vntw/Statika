@@ -142,7 +142,7 @@ abstract class Version
      *
      * @return Version[]
      */
-    protected function getVersionHandlers()
+    protected static function getVersionHandlers()
     {
         if (null === self::$handlers) {
             self::$handlers = array(
