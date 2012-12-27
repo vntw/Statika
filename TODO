@@ -2,7 +2,6 @@ ToDo
 ======
 
 * Unit Tests
-* PHAR Compiler
-* Compressor Configuration/Parameter Options
+* Compressor Parameter Options
 * Optimize Output (Colour)
 * UglifyJS Webservice Compressor
