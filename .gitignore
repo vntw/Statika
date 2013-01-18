@@ -2,9 +2,10 @@
 /.project
 /.buildpath
 /composer.phar
-/vendor
-/nbproject
+composer.lock
+nbproject
 phpunit.xml
 .vagrant
 Vagrantfile
 .idea
+/vendor
