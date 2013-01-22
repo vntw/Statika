@@ -73,7 +73,7 @@ abstract class CompositionConfiguration extends Configuration
 
     /**
      *
-     * @return string
+     * @return \Statika\File\FileSet[]
      */
     public function getFileSets()
     {
@@ -85,7 +85,7 @@ abstract class CompositionConfiguration extends Configuration
      * @param  string                               $fileSets
      * @return \Statika\Configuration\Configuration
      */
-    public function setFileSets($fileSets)
+    public function setFileSets(array $fileSets)
     {
         $this->fileSets = $fileSets;
 

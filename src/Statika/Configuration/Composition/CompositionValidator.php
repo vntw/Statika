@@ -19,7 +19,6 @@ use Statika\File\Exception\FileNotFoundException;
  */
 class CompositionValidator
 {
-
     /**
      *
      * @param  Statika\Configuration\Composition\CompositionConfiguration $config
@@ -34,7 +33,7 @@ class CompositionValidator
             foreach ($fileSet->getFiles() as $file) {
                 /* @var $file Statika\File\File */
 
-                if (!file_exists($file->getRealPath())) {
+                if (!file_exists($file->getRealPath()) || !is_readable($file->getRealpath())) {
                     throw new FileNotFoundException($file->getRealPath());
                 }
             }

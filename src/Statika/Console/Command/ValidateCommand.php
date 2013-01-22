@@ -12,9 +12,9 @@
 namespace Statika\Console\Command;
 
 use Statika\File\File;
+use Statika\Console\Command\Command;
 use Statika\Configuration\Composition\JsonCompositionConfiguration;
 use Statika\Configuration\Composition\CompositionValidator;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -38,7 +38,10 @@ class ValidateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        parent::execute($input, $output);
+
         $config = $input->getArgument('config');
+        $output->writeln('<headline><> Validating config file @ ' . $config . '...</headline>');
 
         if (!file_exists($config)) {
             throw new FileNotFoundException('Config file ' . $config . ' not found!');
@@ -59,7 +62,16 @@ class ValidateCommand extends Command
 
         try {
             $validator->validate($config);
-            $output->writeln('<info>Successfully validated the config file!</info>');
+            $output->writeln(
+                    '<result><> Successfully validated the config file! All files are readable and exist.</result>'
+            );
+
+            $fileCount = 0;
+            foreach ($config->getFileSets() as $fileSet) {
+                $fileCount += $fileSet->count();
+            }
+
+            $output->writeln(sprintf('<info>   (%d filesets, %d files)</info>', count($config->getFileSets()), $fileCount));
         } catch (\Exception $exc) {
             $output->writeln('<error>' . $exc->getMessage() . '</error>');
         }

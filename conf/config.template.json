@@ -1,9 +1,8 @@
 {
     "name": "Template",
     "description": "This is a template of a configuration",
-    "filePattern": "([a-z]+)\\.{*_version_*}\\.min\\.js",
-    "inputDir": "/path/to/your/js",
-    "outputDir": "/path/to/your/js/min",
+    "inputDir": "/path/to/your/static/js",
+    "outputDir": "/path/to/your/static/js/min",
     "compositions":[
 	{
 	    "compressor": "yui",

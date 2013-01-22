@@ -13,9 +13,9 @@ namespace Statika\Console\Command;
 
 use Statika\File\File;
 use Statika\Compressor;
+use Statika\Console\Command\Command;
 use Statika\Configuration\Composition;
 use Statika\File\Exception\FileNotFoundException;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -40,6 +40,8 @@ class CompressCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        parent::execute($input, $output);
+
         $config = $input->getArgument('config');
 
         if (!file_exists($config)) {

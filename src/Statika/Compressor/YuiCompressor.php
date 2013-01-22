@@ -37,10 +37,6 @@ class YuiCompressor extends BinaryCompressor
      */
     public function compress(Version $version)
     {
-        $this->getManager()->getOutput()->writeln(
-                sprintf('<info>Starting compression of output file \'%s\' (%d files)</info>', $this->manager->getConfiguration()->getName(), $this->aggregator->getFileSet()->count())
-        );
-
         if (!$this->aggregator instanceof FileAggregator) {
             throw new \InvalidArgumentException('No aggregator provided!');
         }
@@ -62,15 +58,11 @@ class YuiCompressor extends BinaryCompressor
                 $outputMinFile = new File($targetMinFile);
                 $this->bytesAfter = $outputMinFile->getSize();
 
-                $this->manager->getOutput()->writeln(
-                        sprintf('<info>Successfully created minified version %s!</info>', $version->getFormattedFileName())
-                );
-
                 return;
             }
         }
 
-        $this->manager->getOutput()->writeln('<error>Could not write tmp file!</error>');
+        throw new \ErrorException('Could not write to file: ' . $targetRawFile);
     }
 
 }

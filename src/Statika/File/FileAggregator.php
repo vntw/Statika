@@ -90,7 +90,7 @@ class FileAggregator implements Aggregator
         foreach ($this->fileSet->getFiles() as $file) {
             if (null !== $this->output) {
                 $this->output->writeln(
-                        sprintf('<comment>Reading file %s</comment>', $file->getRealPath())
+                        sprintf('<item>- Reading file %s</item>', $file->getRealPath())
                 );
             }
 
