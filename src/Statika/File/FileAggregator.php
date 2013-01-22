@@ -18,13 +18,31 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class FileAggregator extends Aggregator
+class FileAggregator implements Aggregator
 {
     /**
      *
      * @var \Statika\File\FileSet
      */
     protected $fileSet;
+
+    /**
+     *
+     * @var \Symfony\Component\Console\Output\OutputInterface
+     */
+    protected $output;
+
+    /**
+     *
+     * @param  \Statika\File\FileSet        $fileSet
+     * @return \Statika\File\FileAggregator
+     */
+    public function setFileSet(FileSet $fileSet)
+    {
+        $this->fileSet = $fileSet;
+
+        return $this;
+    }
 
     /**
      *
@@ -36,39 +54,50 @@ class FileAggregator extends Aggregator
     }
 
     /**
-     * CTOR
      *
-     * @param \Statika\File\FileSet $fileSet
+     * @return \Symfony\Component\Console\Output\OutputInterface
      */
-    public function __construct(FileSet $fileSet)
+    public function getOutput()
     {
-        $this->fileSet = $fileSet;
+        return $this->output;
     }
 
     /**
      *
      * @param  \Symfony\Component\Console\Output\OutputInterface $output
+     * @return \Statika\File\FileAggregator
+     */
+    public function setOutput(OutputInterface $output)
+    {
+        $this->output = $output;
+
+        return $this;
+    }
+
+    /**
+     *
      * @return string
      * @throws \InvalidArgumentException
      */
-    public function aggregate(OutputInterface $output = null)
+    public function aggregate()
     {
         if (!$this->fileSet instanceof FileSet) {
             throw new \InvalidArgumentException('No fileset provided!');
         }
 
-        $aggregator = '';
+        $aggregatedContent = '';
 
         foreach ($this->fileSet->getFiles() as $file) {
-            if (null !== $output) {
-                $output->writeln(
+            if (null !== $this->output) {
+                $this->output->writeln(
                         sprintf('<comment>Reading file %s</comment>', $file->getRealPath())
                 );
             }
-            $aggregator .= file_get_contents($file->getRealPath());
+
+            $aggregatedContent .= file_get_contents($file->getRealPath());
         }
 
-        return $aggregator;
+        return $aggregatedContent;
     }
 
 }

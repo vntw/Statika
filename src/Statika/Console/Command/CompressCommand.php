@@ -58,7 +58,7 @@ class CompressCommand extends Command
 
         $config->fromFile($configFile);
 
-        $compressManager = new Compressor\Manager($config, $output, $input);
+        $compressManager = new Compressor\CompressManager($config, $output, $input);
         $compressManager->handle();
     }
 

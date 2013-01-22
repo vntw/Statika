@@ -11,7 +11,7 @@
 
 namespace Statika\Compressor;
 
-use Statika\Compressor\Manager;
+use Statika\Compressor\CompressManager;
 use Statika\File\Aggregator;
 use Statika\Version\Version;
 use Statika\File\Exception\FileNotFoundException;
@@ -23,7 +23,7 @@ abstract class Compressor
 {
     /**
      *
-     * @var \Statika\Compressor\Manager
+     * @var \Statika\Compressor\CompressManager
      */
     protected $manager;
 
@@ -53,7 +53,7 @@ abstract class Compressor
 
     /**
      *
-     * @return \Statika\Compressor\Manager
+     * @return \Statika\Compressor\CompressManager
      */
     public function getManager()
     {
@@ -62,11 +62,14 @@ abstract class Compressor
 
     /**
      *
-     * @param \Statika\Compressor\Manager $manager
+     * @param  \Statika\Compressor\CompressManager $manager
+     * @return \Statika\Compressor\Compressor
      */
-    public function setManager(Manager$manager)
+    public function setManager(CompressManager $manager)
     {
         $this->manager = $manager;
+
+        return $this;
     }
 
     /**
@@ -80,11 +83,14 @@ abstract class Compressor
 
     /**
      *
-     * @param \Statika\File\Aggregator $aggregator
+     * @param  \Statika\File\Aggregator       $aggregator
+     * @return \Statika\Compressor\Compressor
      */
     public function setAggregator(Aggregator $aggregator)
     {
         $this->aggregator = $aggregator;
+
+        return $this;
     }
 
     /**
@@ -107,29 +113,11 @@ abstract class Compressor
 
     /**
      *
-     * @param int $bytesBefore
-     */
-    public function setBytesBefore($bytesBefore)
-    {
-        $this->bytesBefore = $bytesBefore;
-    }
-
-    /**
-     *
      * @return int
      */
     public function getBytesAfter()
     {
         return $this->bytesAfter;
-    }
-
-    /**
-     *
-     * @param int $bytesAfter
-     */
-    public function setBytesAfter($bytesAfter)
-    {
-        $this->bytesAfter = $bytesAfter;
     }
 
     /**

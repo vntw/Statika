@@ -11,7 +11,7 @@
 
 namespace Statika\Compressor;
 
-use Statika\Compressor;
+use Statika\Compressor\Compressor;
 use Statika\Configuration\Configuration;
 use Statika\File\FileAggregator;
 use Statika\Version\Version;
@@ -21,7 +21,7 @@ use Symfony\Component\Console\Input\InputInterface;
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class Manager
+class CompressManager
 {
     /**
      *
@@ -101,10 +101,14 @@ class Manager
             $version = $versionHandler->getVersionForFile($fileSet->getOutputName(), $this->configuration->getOutputDir());
             $version->increaseVersion();
 
-            $compressor = Compressor\Compressor::getCompressor($fileSet->getCompressorKey());
-            $compressor->setManager($this);
-            $compressor->setAggregator(new FileAggregator($fileSet));
-            $compressor->compress($version);
+            $aggregator = new FileAggregator();
+            $aggregator->setFileSet($fileSet)
+                    ->setOutput($this->output);
+
+            $compressor = Compressor::getCompressor($fileSet->getCompressorKey());
+            $compressor->setManager($this)
+                    ->setAggregator($aggregator)
+                    ->compress($version);
 
             $this->output->writeln(
                     sprintf('<info>Successfully compressed the fileset! You saved %s%% in filesize!</info>', $compressor->calculateByteAdvantage())

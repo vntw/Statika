@@ -11,10 +11,16 @@
 
 namespace Statika\File;
 
+use \Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-abstract class Aggregator
+interface Aggregator
 {
-    abstract public function aggregate();
+    public function setOutput(OutputInterface $output);
+
+    public function getOutput();
+
+    public function aggregate();
 }
