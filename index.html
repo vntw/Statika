@@ -30,18 +30,49 @@
       <section id="main_content">
         <h2>Statika... what?</h2>
 
-<p>Statika is a file manager for the static files of your projects. It can combine and compress your CSS/JS files. All you have to do is to set up a configuration file where you define your filesets. You can find a config template in the <code>conf/</code> folder of this project.</p>
+<p>Statika is a file manager for the static files of your projects. It can combine and compress your CSS/JS files and increase versions automatically. All you have to do is to set up a configuration file for each of your projects where you´d like to use Statika.</p>
+
+<h2>Project Config</h2>
+
+<p>The config file describes various things like the output name of the minified file(s), versioning or the filesets. You can find a config template in the <code>conf/</code> folder of this project.</p>
+
+<h2>Preparation</h2>
+
+<p>There are two ways using Statika:</p>
+
+<ul>
+<li>Run from source</li>
+<li>Compile the source (create a phar archive) - if you´d like to use Statika globally</li>
+</ul><h3>Run from source</h3>
+
+<p>To run Statika from source, use the following command:</p>
+
+<pre><code>./bin/statika &lt;command&gt;
+</code></pre>
+
+<h3>Compile the source</h3>
+
+<p>To compile the source, use the following command:</p>
+
+<pre><code>./bin/compile
+</code></pre>
+
+<p>If you´d like to use Statika globally, move the compiled file (_statika.phar_) to your <code>bin</code> dir, e.g. <code>/usr/local/bin/statika</code>, and set the proper file modes using:</p>
+
+<pre><code>sudo mv bin/statika.phar /usr/local/bin/statika
+sudo chmod +x /usr/local/bin/statika
+</code></pre>
 
 <h2>Usage</h2>
 
 <p>To compress a defined config:</p>
 
-<pre><code>./statika compress /path/to/config
+<pre><code>$ statika compress /path/to/config.json
 </code></pre>
 
 <p>To validate a defined config:</p>
 
-<pre><code>./statika validate /path/to/config
+<pre><code>$ statika validate /path/to/config.json
 </code></pre>
 
 <h2>Versions</h2>
@@ -49,8 +80,8 @@
 <p>You can specify the output name for each fileset. For now, there are 2 ways of versioning. Each time you compress a config, Statika will check if there is a previous minified version and automatically increase it. (e.g. <em>0001 -&gt; 0002</em> )</p>
 
 <ul>
-<li>Numbers ( <em>test.min.0001.js</em> )</li>
-<li>MD5 ( <em>test.min.098f6bcd4621d373cade4e832627b4f6.js</em> )</li>
+<li>Numbers (<code>test.min.0001.js</code>)</li>
+<li>MD5 (<code>test.min.098f6bcd4621d373cade4e832627b4f6.js</code>)</li>
 </ul>
       </section>
     </div>
