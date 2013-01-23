@@ -87,6 +87,8 @@ class Compiler
         $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../LICENSE'), false);
 
         unset($phar);
+
+        echo sprintf('<> Compiled Statika @ %s', __DIR__ . DIRECTORY_SEPARATOR . $pharFile) . PHP_EOL;
     }
 
     private function addFile($phar, $file, $strip = true)

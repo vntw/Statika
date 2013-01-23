@@ -41,7 +41,6 @@ class ValidateCommand extends Command
         parent::execute($input, $output);
 
         $config = $input->getArgument('config');
-        $output->writeln('<headline><> Validating config file @ ' . $config . '...</headline>');
 
         if (!file_exists($config)) {
             throw new FileNotFoundException('Config file ' . $config . ' not found!');
@@ -51,27 +50,28 @@ class ValidateCommand extends Command
 
         switch ($configFile->getExtension()) {
             case 'json':
-                $config = new JsonCompositionConfiguration();
+                $configuration = new JsonCompositionConfiguration();
                 break;
             default:
                 throw new \InvalidArgumentException('No handler for config type ' . $configFile->getExtension() . ' available!');
         }
 
-        $config->fromFile($configFile);
+        $configuration->fromFile($configFile);
         $validator = new CompositionValidator();
 
+        $fileCount = 0;
+        foreach ($configuration->getFileSets() as $fileSet) {
+            $fileCount += $fileSet->count();
+        }
+
+        $output->writeln('<headline><> Validating config file @ ' . $config . '...</headline>');
+        $output->writeln(sprintf('<info>   (%d filesets, %d files)</info>', count($configuration->getFileSets()), $fileCount));
+
         try {
-            $validator->validate($config);
+            $validator->validate($configuration);
             $output->writeln(
                     '<result><> Successfully validated the config file! All files are readable and exist.</result>'
             );
-
-            $fileCount = 0;
-            foreach ($config->getFileSets() as $fileSet) {
-                $fileCount += $fileSet->count();
-            }
-
-            $output->writeln(sprintf('<info>   (%d filesets, %d files)</info>', count($config->getFileSets()), $fileCount));
         } catch (\Exception $exc) {
             $output->writeln('<error>' . $exc->getMessage() . '</error>');
         }
