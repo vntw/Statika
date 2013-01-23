@@ -45,23 +45,27 @@
 <li>YUI Compressor (<code>yui</code>)</li>
 </ul><p>More are planned, including webservices like UglifyJS.</p>
 
-<h2>Preparation</h2>
+<h2>Getting Started</h2>
 
-<p>There are two ways using Statika:</p>
+<p>First of all you have to install the project dependencies via <a href="http://getcomposer.org">Composer</a>.</p>
+
+<p>If that´s completed, make sure that the file paths for the binary compressors/minifiers in the <code>src/config.php</code> are correct.</p>
+
+<h3>There are two ways using Statika:</h3>
 
 <ul>
 <li>Run from source</li>
 <li>Compile the source (create a phar archive) - if you´d like to use Statika globally</li>
-</ul><h3>Run from source</h3>
+</ul><h4>Run from source</h4>
 
 <p>To run Statika from source, use the following command:</p>
 
 <pre><code>./bin/statika &lt;command&gt;
 </code></pre>
 
-<h3>Compile the source</h3>
+<h4>Compile the source</h4>
 
-<p>To compile the source, make sure that the file paths for the compilers in the <code>src/config.php</code> are correct, then use the following command:</p>
+<p>To compile the source, use the following command:</p>
 
 <pre><code>./bin/compile
 </code></pre>
