@@ -11,19 +11,23 @@ Currently there are two compressors implemented:
 
 More are planned, including webservices like UglifyJS.
 
-## Preparation
-There are two ways using Statika:
+## Getting Started
+First of all you have to install the project dependencies via [Composer](http://getcomposer.org).
+
+If that´s completed, make sure that the file paths for the binary compressors/minifiers in the ```src/config.php``` are correct.
+
+### There are two ways using Statika:
 * Run from source
 * Compile the source (create a phar archive) - if you´d like to use Statika globally
 
-### Run from source
+#### Run from source
 To run Statika from source, use the following command:
 ```
 ./bin/statika <command>
 ```
 
-### Compile the source
-To compile the source, make sure that the file paths for the compilers in the ```src/config.php``` are correct, then use the following command:
+#### Compile the source
+To compile the source, use the following command:
 ```
 ./bin/compile
 ```
