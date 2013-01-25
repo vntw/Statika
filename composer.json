@@ -1,6 +1,6 @@
 {
     "name": "statika/statika",
-    "description": "Static File Manager",
+    "description": "A static file manager to compress CSS/JS files with project specific configs, filesets and compressors",
     "keywords": ["static", "file", "compressor", "compress", "minify", "minifier"],
     "license": "MIT",
     "type": "library",
