@@ -9,12 +9,12 @@ $config->assignFromHash(array(
         array(
             "key" => "yui",
             "map" => "YuiCompressor",
-            "path" => "/home/vntw/private/statika/bin/yuicompressor-2.4.7.jar"
+            "path" => "/home/vntw/private/statika/res/compressors/yuicompressor-2.4.7.jar"
         ),
         array(
             "key" => "closure",
             "map" => "GoogleClosureCompressor",
-            "path" => "/home/vntw/private/statika/bin/googleclosurecompiler.jar"
+            "path" => "/home/vntw/private/statika/res/compressors/googleclosurecompiler.jar"
         )
     )
 ));
