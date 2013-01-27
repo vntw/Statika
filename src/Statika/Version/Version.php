@@ -129,6 +129,9 @@ abstract class Version
      */
     abstract public function getRegexp();
 
+    /**
+     * Increase the file version
+     */
     abstract public function increaseVersion();
 
     /**
@@ -138,13 +141,18 @@ abstract class Version
      */
     abstract public function getVersionForFile($file, $outputDir);
 
+    protected function getFullVersionKey()
+    {
+        return '{version|' . $this->getKey() . '}';
+    }
+
     /**
      *
      * @return string
      */
     public function getFormattedFileName()
     {
-        return str_replace('{version|' . $this->getKey() . '}', $this->version, $this->getFilePattern());
+        return str_replace($this->getFullVersionKey(), $this->version, $this->getFilePattern());
     }
 
     /**
@@ -172,7 +180,7 @@ abstract class Version
     public static function parseVersionHandler($filePattern)
     {
         foreach (self::getVersionHandlers() as $version) {
-            if (strstr($filePattern, '{version|' . $version->getKey() . '}')) {
+            if (strstr($filePattern, $version->getFullVersionKey())) {
                 return $version;
             }
         }

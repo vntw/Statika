@@ -33,7 +33,7 @@ class VersionNumber extends Version
      */
     public function getFormattedFileName()
     {
-        return str_replace('{' . $this->getKey() . '}', str_pad($this->version, 4, 0, STR_PAD_LEFT), $this->getFilePattern());
+        return str_replace($this->getFullVersionKey(), str_pad($this->version, 4, 0, STR_PAD_LEFT), $this->getFilePattern());
     }
 
     public function increaseVersion()
