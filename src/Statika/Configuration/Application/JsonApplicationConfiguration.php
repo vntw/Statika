@@ -12,13 +12,17 @@
 namespace Statika\Configuration\Application;
 
 use \Statika\File\File;
-use Statika\Configuration\Application\ApplicationConfiguration;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
 class JsonApplicationConfiguration extends ApplicationConfiguration
 {
+    /**
+     *
+     * @param  \Statika\File\File                                              $configFile
+     * @return \Statika\Configuration\Application\JsonApplicationConfiguration
+     */
     public function fromFile(File $configFile)
     {
         $this->assignFromHash(json_decode(file_get_contents($configFile->getRealPath()), true));

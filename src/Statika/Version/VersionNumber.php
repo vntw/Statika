@@ -12,7 +12,6 @@
 namespace Statika\Version;
 
 use Statika\File\File;
-use Statika\Version\Version;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
@@ -25,7 +24,7 @@ class VersionNumber extends Version
      */
     public function getKey()
     {
-        return 'version|nr';
+        return 'nr';
     }
 
     /**
@@ -60,7 +59,7 @@ class VersionNumber extends Version
     public function getVersionForFile($file, $outputDir)
     {
         $versions = array();
-        $filePattern = str_replace(array('{' . $this->getKey() . '}', '.'), array($this->getRegexp(), '\.'), $file);
+        $filePattern = str_replace(array('{version|' . $this->getKey() . '}', '.'), array($this->getRegexp(), '\.'), $file);
         $outputDir = new \DirectoryIterator($outputDir);
 
         foreach ($outputDir as $outputFile) {

@@ -12,7 +12,6 @@
 namespace Statika\Console;
 
 use Statika\Statika;
-use Statika\Console\Command;
 use Symfony\Component\Console\Application as ConsoleApplication;
 
 /**

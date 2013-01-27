@@ -11,8 +11,6 @@
 
 namespace Statika\Version;
 
-use Statika\Version\Version;
-
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
@@ -24,7 +22,7 @@ class VersionMD5 extends Version
      */
     public function getKey()
     {
-        return 'version|md5';
+        return 'md5';
     }
 
     public function increaseVersion()

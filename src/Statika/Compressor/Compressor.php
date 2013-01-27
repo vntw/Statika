@@ -11,9 +11,8 @@
 
 namespace Statika\Compressor;
 
-use Statika\Compressor\CompressManager;
-use Statika\File\Aggregator;
 use Statika\Version\Version;
+use Statika\File\Aggregator;
 use Statika\File\Exception\FileNotFoundException;
 
 /**

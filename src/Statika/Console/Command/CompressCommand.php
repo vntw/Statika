@@ -13,7 +13,6 @@ namespace Statika\Console\Command;
 
 use Statika\File\File;
 use Statika\Compressor;
-use Statika\Console\Command\Command;
 use Statika\Configuration\Composition;
 use Statika\File\Exception\FileNotFoundException;
 use Symfony\Component\Console\Input\InputArgument;

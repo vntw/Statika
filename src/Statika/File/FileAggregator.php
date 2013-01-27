@@ -11,8 +11,6 @@
 
 namespace Statika\File;
 
-use Statika\File\FileSet;
-use Statika\File\Aggregator;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -94,7 +92,7 @@ class FileAggregator implements Aggregator
                 );
             }
 
-            $aggregatedContent .= file_get_contents($file->getRealPath());
+            $aggregatedContent .= trim(file_get_contents($file->getRealPath()));
         }
 
         return $aggregatedContent;

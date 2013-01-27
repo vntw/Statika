@@ -12,7 +12,6 @@
 namespace Statika\Console\Command;
 
 use Statika\File\File;
-use Statika\Console\Command\Command;
 use Statika\Configuration\Composition\JsonCompositionConfiguration;
 use Statika\Configuration\Composition\CompositionValidator;
 use Symfony\Component\Console\Input\InputArgument;

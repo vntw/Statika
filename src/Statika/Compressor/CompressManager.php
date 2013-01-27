@@ -13,7 +13,6 @@ namespace Statika\Compressor;
 
 use Statika\Version\Version;
 use Statika\File\FileAggregator;
-use Statika\Compressor\Compressor;
 use Statika\Configuration\Composition\CompositionConfiguration;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;

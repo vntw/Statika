@@ -12,7 +12,6 @@
 namespace Statika\Console\Command;
 
 use Statika\Statika;
-use Statika\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

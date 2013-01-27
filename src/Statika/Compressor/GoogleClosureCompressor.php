@@ -11,7 +11,6 @@
 
 namespace Statika\Compressor;
 
-use Statika\Compressor\BinaryCompressor;
 use Statika\File\File;
 use Statika\File\FileAggregator;
 use Statika\Version\Version;

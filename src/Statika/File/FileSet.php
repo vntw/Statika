@@ -11,8 +11,6 @@
 
 namespace Statika\File;
 
-use \Statika\File\File;
-
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */

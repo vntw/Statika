@@ -11,8 +11,6 @@
 
 namespace Statika\Compressor;
 
-use Statika\Compressor\Compressor;
-
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */

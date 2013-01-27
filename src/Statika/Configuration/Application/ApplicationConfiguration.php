@@ -18,6 +18,10 @@ use Statika\Configuration\Configuration;
  */
 abstract class ApplicationConfiguration extends Configuration
 {
+    /**
+     *
+     * @var array
+     */
     protected $compressors = array();
 
     /**

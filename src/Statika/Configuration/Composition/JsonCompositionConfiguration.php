@@ -12,7 +12,6 @@
 namespace Statika\Configuration\Composition;
 
 use Statika\File\File;
-use Statika\Configuration\Composition\CompositionConfiguration;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>

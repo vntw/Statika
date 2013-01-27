@@ -65,11 +65,14 @@ abstract class Version
 
     /**
      *
-     * @param int $version
+     * @param  int                      $version
+     * @return \Statika\Version\Version
      */
     public function setVersion($version)
     {
         $this->version = $version;
+
+        return $this;
     }
 
     /**
@@ -83,11 +86,14 @@ abstract class Version
 
     /**
      *
-     * @param \Statika\File\File $file
+     * @param  \Statika\File\File       $file
+     * @return \Statika\Version\Version
      */
     public function setFile(File $file)
     {
         $this->file = $file;
+
+        return $this;
     }
 
     /**
@@ -101,11 +107,14 @@ abstract class Version
 
     /**
      *
-     * @param string $filePattern
+     * @param  string                   $filePattern
+     * @return \Statika\Version\Version
      */
     public function setFilePattern($filePattern)
     {
         $this->filePattern = $filePattern;
+
+        return $this;
     }
 
     /**
@@ -135,7 +144,7 @@ abstract class Version
      */
     public function getFormattedFileName()
     {
-        return str_replace('{' . $this->getKey() . '}', $this->version, $this->getFilePattern());
+        return str_replace('{version|' . $this->getKey() . '}', $this->version, $this->getFilePattern());
     }
 
     /**
@@ -163,7 +172,7 @@ abstract class Version
     public static function parseVersionHandler($filePattern)
     {
         foreach (self::getVersionHandlers() as $version) {
-            if (strstr($filePattern, '{' . $version->getKey() . '}')) {
+            if (strstr($filePattern, '{version|' . $version->getKey() . '}')) {
                 return $version;
             }
         }

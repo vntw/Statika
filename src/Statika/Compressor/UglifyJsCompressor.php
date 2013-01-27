@@ -11,7 +11,6 @@
 
 namespace Statika\Compressor;
 
-use Statika\Compressor\WebserviceCompressor;
 use Statika\File\File;
 use Statika\Version\Version;
 

@@ -12,7 +12,6 @@
 namespace Statika\Configuration;
 
 use Statika\File\File;
-use Statika\Configuration\Validator\ValidatorInterface;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>

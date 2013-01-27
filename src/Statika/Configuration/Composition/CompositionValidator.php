@@ -11,13 +11,14 @@
 
 namespace Statika\Configuration\Composition;
 
-use Statika\Configuration\Composition\CompositionConfiguration;
+use Statika\Configuration\Configuration;
+use Statika\Configuration\ValidatorInterface;
 use Statika\File\Exception\FileNotFoundException;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
-class CompositionValidator
+class CompositionValidator implements ValidatorInterface
 {
     /**
      *
@@ -25,7 +26,7 @@ class CompositionValidator
      * @return bool
      * @throws FileNotFoundException
      */
-    public function validate(CompositionConfiguration $config)
+    public function validate(Configuration $config)
     {
         foreach ($config->getFileSets() as $fileSet) {
             /* @var $fileSet Statika\File\FileSet */
