@@ -19,7 +19,7 @@ use Statika\Configuration\Application\ApplicationConfiguration;
 class Statika
 {
     const VERSION = '1.0';
-    const CLI_NAME = 'Statika CLI Application';
+    const CLI_NAME = 'Statika CLI';
 
     /**
      *
