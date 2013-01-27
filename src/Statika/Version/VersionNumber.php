@@ -28,12 +28,22 @@ class VersionNumber extends Version
     }
 
     /**
+     * Format the version (1 => 0001)
+     *
+     * @return int
+     */
+    public function formatPrettyVersion()
+    {
+        return str_pad($this->version, 4, 0, STR_PAD_LEFT);
+    }
+
+    /**
      *
      * @return string
      */
     public function getFormattedFileName()
     {
-        return str_replace($this->getFullVersionKey(), str_pad($this->version, 4, 0, STR_PAD_LEFT), $this->getFilePattern());
+        return str_replace($this->getFullVersionKey(), $this->formatPrettyVersion(), $this->getFilePattern());
     }
 
     public function increaseVersion()
@@ -52,23 +62,23 @@ class VersionNumber extends Version
 
     /**
      *
-     * @param  string                         $file
+     * @param  string                         $filePattern
      * @param  string                         $outputDir
      * @return \Statika\Version\VersionNumber
      */
-    public function getVersionForFile($file, $outputDir)
+    public function getLatestVersion($filePattern, $outputDir)
     {
         $versions = array();
-        $filePattern = str_replace(array('{version|' . $this->getKey() . '}', '.'), array($this->getRegexp(), '\.'), $file);
+        $fileRegExp = str_replace($this->getFullVersionKey(), $this->getRegexp(), $filePattern);
         $outputDir = new \DirectoryIterator($outputDir);
 
         foreach ($outputDir as $outputFile) {
-            if ($outputFile->isFile() && preg_match('/^' . $filePattern . '$/', $outputFile->getFilename(), $matchedVersion)) {
+            if ($outputFile->isFile() && preg_match('/^' . $fileRegExp . '$/', $outputFile->getFilename(), $matchedVersion)) {
                 if (is_array($matchedVersion) && is_numeric($matchedVersion[1])) {
                     $version = clone $this;
                     $version->setFile(new File($outputFile->getRealPath()));
                     $version->setVersion((int) $matchedVersion[1]);
-                    $version->setFilePattern($file);
+                    $version->setFilePattern($filePattern);
                     $versions[$version->getVersion()] = $version;
                 }
             }
@@ -81,7 +91,7 @@ class VersionNumber extends Version
             $latest = $sortedVersions[0];
         } else {
             $latest = clone $this;
-            $latest->setFilePattern($file);
+            $latest->setFilePattern($filePattern);
             $latest->setVersion(0);
         }
 

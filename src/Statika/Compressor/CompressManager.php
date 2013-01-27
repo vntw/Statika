@@ -101,7 +101,7 @@ class CompressManager
 
             $versionHandler = Version::parseVersionHandler($fileSet->getOutputName());
 
-            $version = $versionHandler->getVersionForFile($fileSet->getOutputName(), $this->configuration->getOutputDir());
+            $version = $versionHandler->getLatestVersion($fileSet->getOutputName(), $this->configuration->getOutputDir());
             $version->increaseVersion();
 
             $this->output->writeln(

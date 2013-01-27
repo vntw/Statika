@@ -25,9 +25,12 @@ class VersionMD5 extends Version
         return 'md5';
     }
 
+    /**
+     * Increase the file version
+     */
     public function increaseVersion()
     {
-        $this->version = md5(rand(1000, 99999) . uniqid() . time() . microtime());
+        $this->version = md5(rand(100, 1000) . uniqid() . time());
     }
 
     /**
@@ -45,7 +48,7 @@ class VersionMD5 extends Version
      * @param  string                      $outputDir
      * @return \Statika\Version\VersionMD5
      */
-    public function getVersionForFile($file, $outputDir)
+    public function getLatestVersion($file, $outputDir)
     {
         $this->filePattern = $file;
 

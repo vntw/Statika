@@ -136,11 +136,15 @@ abstract class Version
 
     /**
      *
-     * @param string $file
+     * @param string $filePattern
      * @param string $outputDir
      */
-    abstract public function getVersionForFile($file, $outputDir);
+    abstract public function getLatestVersion($filePattern, $outputDir);
 
+    /**
+     * 
+     * @return string
+     */
     protected function getFullVersionKey()
     {
         return '{version|' . $this->getKey() . '}';
