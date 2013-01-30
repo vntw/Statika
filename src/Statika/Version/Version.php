@@ -142,7 +142,7 @@ abstract class Version
     abstract public function getLatestVersion($filePattern, $outputDir);
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getFullVersionKey()

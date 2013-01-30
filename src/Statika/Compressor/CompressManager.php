@@ -101,23 +101,25 @@ class CompressManager
 
             $versionHandler = Version::parseVersionHandler($fileSet->getOutputName());
 
-            $version = $versionHandler->getLatestVersion($fileSet->getOutputName(), $this->configuration->getOutputDir());
+            $version = $versionHandler->getLatestVersion($fileSet->getOutputName(), $fileSet->getOutputDir());
             $version->increaseVersion();
+
+            $compressor = Compressor::getCompressor($fileSet->getCompressorKey());
 
             $this->output->writeln(
                     sprintf('<headline><> Starting compression of output file \'%s\'</headline>', $version->getFormattedFileName())
             );
             $this->output->writeln(
-                    sprintf('<info>   (%d files, %s compressor)</info>', $fileSet->count(), $fileSet->getCompressorKey())
+                    sprintf('<info>   (%d files, using %s)</info>', $fileSet->count(), $compressor->getName())
             );
 
             $aggregator = new FileAggregator();
             $aggregator->setFileSet($fileSet)
                     ->setOutput($this->output);
 
-            $compressor = Compressor::getCompressor($fileSet->getCompressorKey());
             $compressor->setManager($this)
                     ->setAggregator($aggregator)
+                    ->setFileSet($fileSet)
                     ->compress($version);
 
             $this->output->writeln(

@@ -9,12 +9,12 @@ $config->assignFromHash(array(
         array(
             'key' => 'yui',
             'map' => 'YuiCompressor',
-            'path' => '/home/ven/private/github/statika/res/compressors/yuicompressor-2.4.7.jar'
+            'path' => '/home/vntw/private/statika/res/compressors/yuicompressor-2.4.7.jar'
         ),
         array(
             'key' => 'closure',
             'map' => 'GoogleClosureCompressor',
-            'path' => '/home/ven/private/github/statika/res/compressors/googleclosurecompiler.jar'
+            'path' => '/home/vntw/private/statika/res/compressors/googleclosurecompiler.jar'
         ),
         array(
             'key' => 'uglifyjs',

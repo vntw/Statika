@@ -28,7 +28,7 @@ class UglifyJsCompressor extends WebserviceCompressor
     public function __construct()
     {
         $this->key = 'uglifyjs';
-        $this->name = 'UglifyJS';
+        $this->name = 'UglifyJS JavaScript Minifier';
     }
 
     /**
@@ -57,7 +57,7 @@ class UglifyJsCompressor extends WebserviceCompressor
 
         if ($response->isOk()) {
             $minifiedCode = $response->getContent();
-            $targetMinFile = $this->manager->getConfiguration()->getOutputDir() . DIRECTORY_SEPARATOR . $version->getFormattedFileName();
+            $targetMinFile = $this->fileSet->getOutputDir() . DIRECTORY_SEPARATOR . $version->getFormattedFileName();
 
             if (false !== file_put_contents($targetMinFile, $minifiedCode)) {
                 $outputMinFile = new File($targetMinFile);
@@ -69,7 +69,7 @@ class UglifyJsCompressor extends WebserviceCompressor
             }
         }
 
-        throw new \ErrorException('Error');
+        throw new \ErrorException('Error while compressing the fileset');
     }
 
 }
