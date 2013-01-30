@@ -11,6 +11,7 @@
 
 namespace Statika\Compressor;
 
+use Statika\Statika;
 use Statika\Version\Version;
 use Statika\File\Aggregator;
 use Statika\File\Exception\FileNotFoundException;
@@ -31,6 +32,18 @@ abstract class Compressor
      * @var \Statika\File\Aggregator
      */
     protected $aggregator;
+
+    /**
+     *
+     * @var \Statika\File\FileSet
+     */
+    protected $fileSet;
+
+    /**
+     *
+     * @var string
+     */
+    protected $key;
 
     /**
      *
@@ -96,9 +109,57 @@ abstract class Compressor
      *
      * @return string
      */
+    public function getFileSet()
+    {
+        return $this->fileSet;
+    }
+
+    /**
+     *
+     * @param  string                         $fileSet
+     * @return \Statika\Compressor\Compressor
+     */
+    public function setFileSet($fileSet)
+    {
+        $this->fileSet = $fileSet;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
+     *
+     * @param string $key
+     */
+    public function setKey($key)
+    {
+        $this->key = $key;
+    }
+
+    /**
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     *
+     * @param string $key
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 
     /**
@@ -125,7 +186,7 @@ abstract class Compressor
      */
     public function calculateByteAdvantage()
     {
-        return (round(($this->bytesAfter / $this->bytesBefore) * 100, 2) - 100) * -1;
+        return (round(($this->bytesAfter / $this->bytesBefore) * 100, 2) * - 1) * -1;
     }
 
     /**
@@ -142,7 +203,7 @@ abstract class Compressor
      */
     public static function getCompressor($key)
     {
-        foreach (\Statika\Statika::getConfig()->getCompressors() as $compressor) {
+        foreach (Statika::getConfig()->getCompressors() as $compressor) {
             if ($compressor['key'] === $key) {
                 $compressorClass = 'Statika\Compressor\\' . $compressor['map'];
                 $comp = new $compressorClass;

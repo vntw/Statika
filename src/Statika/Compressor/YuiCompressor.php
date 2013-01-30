@@ -25,7 +25,8 @@ class YuiCompressor extends BinaryCompressor
      */
     public function __construct()
     {
-        $this->name = 'yui';
+        $this->key = 'yui';
+        $this->name = 'YUI Compressor';
     }
 
     /**
@@ -42,12 +43,16 @@ class YuiCompressor extends BinaryCompressor
 
         $fileSetAggregate = $this->aggregator->aggregate($this->manager->getOutput());
 
-        $targetRawFile = $this->manager->getConfiguration()->getOutputDir() . DIRECTORY_SEPARATOR . '.tmp-' . $version->getFormattedFileName();
-        $targetMinFile = $this->manager->getConfiguration()->getOutputDir() . DIRECTORY_SEPARATOR . $version->getFormattedFileName();
+        $targetRawFile = $this->fileSet->getOutputDir() . DIRECTORY_SEPARATOR . '.tmp-' . $version->getFormattedFileName();
+        $targetMinFile = $this->fileSet->getOutputDir() . DIRECTORY_SEPARATOR . $version->getFormattedFileName();
 
         if (false !== file_put_contents($targetRawFile, $fileSetAggregate)) {
             $outputRawFile = new File($targetRawFile);
             $this->bytesBefore = $outputRawFile->getSize();
+
+            $this->manager->getOutput()->writeln(
+                    sprintf('<item>- Compressing file: %s</item>', $version->getFormattedFileName())
+            );
 
             $cmd = sprintf('java -jar %s %s -o %s', $this->getBinaryPath(), $targetRawFile, $targetMinFile);
             exec(escapeshellcmd($cmd));

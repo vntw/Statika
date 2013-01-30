@@ -13,10 +13,12 @@ namespace Statika\Compressor;
 
 use Statika\File\File;
 use Statika\Version\Version;
+use Buzz\Message\Request;
+use Buzz\Message\Response;
+use Buzz\Client\FileGetContents;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
- * @todo implement
  */
 class UglifyJsCompressor extends WebserviceCompressor
 {
@@ -25,7 +27,8 @@ class UglifyJsCompressor extends WebserviceCompressor
      */
     public function __construct()
     {
-        $this->name = 'uglifyjs';
+        $this->key = 'uglifyjs';
+        $this->name = 'UglifyJS JavaScript Minifier';
     }
 
     /**
@@ -36,7 +39,37 @@ class UglifyJsCompressor extends WebserviceCompressor
      */
     public function compress(Version $version)
     {
-        // use http api @ http://marijnhaverbeke.nl/uglifyjs
+        if (!$this->aggregator instanceof \Statika\File\FileAggregator) {
+            throw new \InvalidArgumentException('No aggregator provided!');
+        }
+
+        $fileSetAggregate = $this->aggregator->aggregate($this->manager->getOutput());
+
+        $request = new Request(Request::METHOD_POST, $this->serviceUrl);
+        $request->setHeaders(array(
+            'Content-Type' => 'application/x-www-form-urlencoded'
+        ));
+        $request->setContent('js_code=' . urlencode($fileSetAggregate));
+
+        $response = new Response();
+        $client = new FileGetContents();
+        $client->send($request, $response);
+
+        if ($response->isOk()) {
+            $minifiedCode = $response->getContent();
+            $targetMinFile = $this->fileSet->getOutputDir() . DIRECTORY_SEPARATOR . $version->getFormattedFileName();
+
+            if (false !== file_put_contents($targetMinFile, $minifiedCode)) {
+                $outputMinFile = new File($targetMinFile);
+
+                $this->bytesBefore = mb_strlen($fileSetAggregate, 'utf-8');
+                $this->bytesAfter = $outputMinFile->getSize();
+
+                return;
+            }
+        }
+
+        throw new \ErrorException('Error while compressing the fileset');
     }
 
 }

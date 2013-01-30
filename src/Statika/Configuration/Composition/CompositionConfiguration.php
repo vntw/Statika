@@ -34,18 +34,6 @@ abstract class CompositionConfiguration extends Configuration
 
     /**
      *
-     * @var string
-     */
-    protected $inputDir;
-
-    /**
-     *
-     * @var string
-     */
-    protected $outputDir;
-
-    /**
-     *
      * @var \Statika\File\FileSet[]
      */
     protected $fileSets = array();
@@ -112,50 +100,12 @@ abstract class CompositionConfiguration extends Configuration
 
     /**
      *
-     * @return string
-     */
-    public function getInputDir()
-    {
-        return $this->inputDir;
-    }
-
-    /**
-     *
-     * @param string $inputDir
-     */
-    public function setInputDir($inputDir)
-    {
-        $this->inputDir = $inputDir;
-    }
-
-    /**
-     *
-     * @return string
-     */
-    public function getOutputDir()
-    {
-        return $this->outputDir;
-    }
-
-    /**
-     *
-     * @param string $outputDir
-     */
-    public function setOutputDir($outputDir)
-    {
-        $this->outputDir = $outputDir;
-    }
-
-    /**
-     *
      * @param array $hash
      */
     public function assignFromHash(array $hash)
     {
         $this->name = $hash['name'];
         $this->description = $hash['description'];
-        $this->inputDir = $hash['inputDir'];
-        $this->outputDir = $hash['outputDir'];
 
         $fileSets = array();
 
@@ -163,9 +113,11 @@ abstract class CompositionConfiguration extends Configuration
             $fileSet = new FileSet();
             $fileSet->setOutputName($composition['outputName']);
             $fileSet->setCompressorKey($composition['compressor']);
+            $fileSet->setInputDir($composition['inputDir']);
+            $fileSet->setOutputDir($composition['outputDir']);
 
-            foreach ($composition['fileset'] as $file) {
-                $src = $this->inputDir . DIRECTORY_SEPARATOR . $file;
+            foreach ($composition['fileSet'] as $file) {
+                $src = $fileSet->getInputDir() . DIRECTORY_SEPARATOR . $file;
                 $fileSet->appendFile(new File($src));
             }
 

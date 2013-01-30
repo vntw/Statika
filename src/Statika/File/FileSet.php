@@ -36,6 +36,18 @@ class FileSet implements \Countable
 
     /**
      *
+     * @var string
+     */
+    private $outputDir;
+
+    /**
+     *
+     * @var string
+     */
+    private $inputDir;
+
+    /**
+     *
      * @return array
      */
     public function getFiles()
@@ -59,6 +71,42 @@ class FileSet implements \Countable
     public function setOutputName($outputName)
     {
         $this->outputName = $outputName;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getOutputDir()
+    {
+        return $this->outputDir;
+    }
+
+    /**
+     *
+     * @param string $outputDir
+     */
+    public function setOutputDir($outputDir)
+    {
+        $this->outputDir = $outputDir;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getInputDir()
+    {
+        return $this->inputDir;
+    }
+
+    /**
+     *
+     * @param string $inputDir
+     */
+    public function setInputDir($inputDir)
+    {
+        $this->inputDir = $inputDir;
     }
 
     /**

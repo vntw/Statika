@@ -25,7 +25,8 @@ class GoogleClosureCompressor extends BinaryCompressor
      */
     public function __construct()
     {
-        $this->name = 'closure';
+        $this->key = 'closure';
+        $this->name = 'Google Closure Compiler';
     }
 
     /**
@@ -42,8 +43,8 @@ class GoogleClosureCompressor extends BinaryCompressor
 
         $fileSetAggregate = $this->aggregator->aggregate($this->manager->getOutput());
 
-        $targetRawFile = $this->manager->getConfiguration()->getOutputDir() . DIRECTORY_SEPARATOR . '.tmp-' . $version->getFormattedFileName();
-        $targetMinFile = $this->manager->getConfiguration()->getOutputDir() . DIRECTORY_SEPARATOR . $version->getFormattedFileName();
+        $targetRawFile = $this->fileSet->getOutputDir() . DIRECTORY_SEPARATOR . '.tmp-' . $version->getFormattedFileName();
+        $targetMinFile = $this->fileSet->getOutputDir() . DIRECTORY_SEPARATOR . $version->getFormattedFileName();
 
         if (false !== file_put_contents($targetRawFile, $fileSetAggregate)) {
             $outputRawFile = new File($targetRawFile);

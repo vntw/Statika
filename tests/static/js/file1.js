@@ -1,5 +1,14 @@
-// comment in dancing.js
+/*
+ * Test File
+ */
+
+
+
+
 /* another comment on dancing.js */
+var unused;
+
+
 /**
  * some more comments
  */
@@ -8,3 +17,6 @@ var x = function () {
 };
 
 x();
+
+// i am not important
+console.log('Yeyyy... this is great!')
