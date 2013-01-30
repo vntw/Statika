@@ -7,14 +7,19 @@ $config = new JsonApplicationConfiguration();
 $config->assignFromHash(array(
     'compressors' => array(
         array(
-            "key" => "yui",
-            "map" => "YuiCompressor",
-            "path" => "/home/vntw/private/statika/res/compressors/yuicompressor-2.4.7.jar"
+            'key' => 'yui',
+            'map' => 'YuiCompressor',
+            'path' => '/home/ven/private/github/statika/res/compressors/yuicompressor-2.4.7.jar'
         ),
         array(
-            "key" => "closure",
-            "map" => "GoogleClosureCompressor",
-            "path" => "/home/vntw/private/statika/res/compressors/googleclosurecompiler.jar"
+            'key' => 'closure',
+            'map' => 'GoogleClosureCompressor',
+            'path' => '/home/ven/private/github/statika/res/compressors/googleclosurecompiler.jar'
+        ),
+        array(
+            'key' => 'uglifyjs',
+            'map' => 'UglifyJsCompressor',
+            'url' => 'http://marijnhaverbeke.nl/uglifyjs'
         )
     )
 ));

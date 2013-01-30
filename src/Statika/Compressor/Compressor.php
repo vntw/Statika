@@ -11,6 +11,7 @@
 
 namespace Statika\Compressor;
 
+use Statika\Statika;
 use Statika\Version\Version;
 use Statika\File\Aggregator;
 use Statika\File\Exception\FileNotFoundException;
@@ -31,6 +32,12 @@ abstract class Compressor
      * @var \Statika\File\Aggregator
      */
     protected $aggregator;
+
+    /**
+     *
+     * @var string
+     */
+    protected $key;
 
     /**
      *
@@ -96,6 +103,24 @@ abstract class Compressor
      *
      * @return string
      */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
+     *
+     * @param string $key
+     */
+    public function setKey($key)
+    {
+        $this->key = $key;
+    }
+
+    /**
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
@@ -142,7 +167,7 @@ abstract class Compressor
      */
     public static function getCompressor($key)
     {
-        foreach (\Statika\Statika::getConfig()->getCompressors() as $compressor) {
+        foreach (Statika::getConfig()->getCompressors() as $compressor) {
             if ($compressor['key'] === $key) {
                 $compressorClass = 'Statika\Compressor\\' . $compressor['map'];
                 $comp = new $compressorClass;
