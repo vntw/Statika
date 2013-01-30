@@ -50,6 +50,10 @@ class GoogleClosureCompressor extends BinaryCompressor
             $outputRawFile = new File($targetRawFile);
             $this->bytesBefore = $outputRawFile->getSize();
 
+            $this->manager->getOutput()->writeln(
+                    sprintf('<item>- Compressing file: %s</item>', $version->getFormattedFileName())
+            );
+
             //  --compilation_level ADVANCED_OPTIMIZATIONS
             $cmd = sprintf('java -jar %s --js %s --js_output_file %s', $this->getBinaryPath(), $targetRawFile, $targetMinFile);
             exec(escapeshellcmd($cmd));

@@ -45,6 +45,10 @@ class UglifyJsCompressor extends WebserviceCompressor
 
         $fileSetAggregate = $this->aggregator->aggregate($this->manager->getOutput());
 
+        $this->manager->getOutput()->writeln(
+                sprintf('<item>- Compressing file: %s</item>', $version->getFormattedFileName())
+        );
+
         $request = new Request(Request::METHOD_POST, $this->serviceUrl);
         $request->setHeaders(array(
             'Content-Type' => 'application/x-www-form-urlencoded'
