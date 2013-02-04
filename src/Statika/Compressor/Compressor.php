@@ -227,4 +227,28 @@ abstract class Compressor
         );
     }
 
+    /**
+     * Build the output path/filename
+     *
+     * @param  \Statika\Version\Version $version
+     * @param  bool                     $tmp
+     * @return string
+     */
+    public function buildOutputPath(Version $version, $tmp = false)
+    {
+        $path = $this->manager->getConfiguration()->getOutputDir() . DIRECTORY_SEPARATOR;
+
+        if ($this->fileSet->getTargetSubDir()) {
+            $path .= $this->fileSet->getTargetSubDir() . DIRECTORY_SEPARATOR;
+        }
+
+        if ($tmp) {
+            $path .= '.tmp-';
+        }
+
+        $path .= $version->getFormattedFileName();
+
+        return $path;
+    }
+
 }

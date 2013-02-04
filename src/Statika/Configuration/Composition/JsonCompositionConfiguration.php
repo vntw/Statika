@@ -25,9 +25,9 @@ class JsonCompositionConfiguration extends CompositionConfiguration
      */
     public function fromFile(File $configFile)
     {
-        $this->assignFromHash(
-                json_decode(file_get_contents($configFile->getRealPath()), true)
-        );
+        $config = @file_get_contents($configFile->getRealPath());
+
+        $this->assignFromHash(json_decode($config, true));
 
         return $this;
     }

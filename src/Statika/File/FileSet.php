@@ -32,19 +32,19 @@ class FileSet implements \Countable
      *
      * @var string
      */
-    private $outputName;
+    protected $targetName;
 
     /**
      *
      * @var string
      */
-    private $outputDir;
+    protected $targetBase;
 
     /**
      *
-     * @var string
+     * @var string|null
      */
-    private $inputDir;
+    protected $targetSubDir;
 
     /**
      *
@@ -59,54 +59,64 @@ class FileSet implements \Countable
      *
      * @return string
      */
-    public function getOutputName()
+    public function getTargetName()
     {
-        return $this->outputName;
+        return $this->targetName;
     }
 
     /**
      *
-     * @param string $outputName
+     * @param  string                $targetName
+     * @return \Statika\File\FileSet
      */
-    public function setOutputName($outputName)
+    public function setTargetName($targetName)
     {
-        $this->outputName = $outputName;
-    }
+        $this->targetName = $targetName;
+        $this->assignTargets();
 
-    /**
-     *
-     * @return string
-     */
-    public function getOutputDir()
-    {
-        return $this->outputDir;
-    }
-
-    /**
-     *
-     * @param string $outputDir
-     */
-    public function setOutputDir($outputDir)
-    {
-        $this->outputDir = $outputDir;
+        return $this;
     }
 
     /**
      *
      * @return string
      */
-    public function getInputDir()
+    public function getTargetBase()
     {
-        return $this->inputDir;
+        return $this->targetBase;
     }
 
     /**
      *
-     * @param string $inputDir
+     * @param  string                $targetBase
+     * @return \Statika\File\FileSet
      */
-    public function setInputDir($inputDir)
+    public function setTargetBase($targetBase)
     {
-        $this->inputDir = $inputDir;
+        $this->targetBase = $targetBase;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getTargetSubDir()
+    {
+        return $this->targetSubDir;
+    }
+
+    /**
+     *
+     * @param  string                $targetSubDir
+     * @return \Statika\File\FileSet
+     */
+    public function setTargetSubDir($targetSubDir)
+    {
+        $this->targetSubDir = $targetSubDir;
+
+        return $this;
     }
 
     /**
@@ -143,6 +153,25 @@ class FileSet implements \Countable
     public function appendFile(File $file)
     {
         $this->files[] = $file;
+    }
+
+    /**
+     * Assign targetBase and targetSubdir
+     *
+     * @return null
+     */
+    public function assignTargets()
+    {
+        if (!strstr($this->targetName, DIRECTORY_SEPARATOR)) {
+            $this->targetBase = $this->targetName;
+
+            return;
+        }
+
+        $delimPos = strrpos($this->targetName, DIRECTORY_SEPARATOR);
+
+        $this->targetBase = substr($this->targetName, $delimPos + 1);
+        $this->targetSubDir = substr($this->targetName, 0, $delimPos);
     }
 
 }

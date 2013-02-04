@@ -1,0 +1,48 @@
+{
+    "name": "Template",
+    "description": "This is a template of a configuration",
+    "inputDir": "/home/vntw/private/statika/tests/static",
+    "outputDir": "/home/vntw/private/statika/tests/static",
+    "compositions":[
+	{
+	    "compressor": "yui",
+	    "outputName": "/js/min/yui.min.{version|md5}.js",
+	    "fileSet": [
+		"/js/file1.js",
+		"/js/file2.js",
+		"/js/file3.js",
+		"/js/sub/file4.js"
+	    ]
+	},
+	{
+	    "compressor": "yui",
+	    "outputName": "/css/min/yui.min.{version|nr}.css",
+	    "fileSet": [
+		"/css/file1.css",
+		"/css/file2.css",
+		"/css/sub/file3.css",
+		"/css/file4.css"
+	    ]
+	},
+	{
+	    "compressor": "closure",
+	    "outputName": "/js/min/closure.min.{version|md5}.js",
+	    "fileSet": [
+		"/js/file1.js",
+		"/js/file2.js",
+		"/js/file3.js",
+		"/js/sub/file4.js"
+	    ]
+	},
+	{
+	    "compressor": "uglifyjs",
+	    "outputName": "/js/min/uglifyjs.min.{version|nr}.js",
+	    "fileSet": [
+		"/js/file1.js",
+		"/js/file2.js",
+		"/js/file3.js",
+		"/js/sub/file4.js"
+	    ]
+	}
+    ]
+}

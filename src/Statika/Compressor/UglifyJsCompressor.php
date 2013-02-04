@@ -61,7 +61,7 @@ class UglifyJsCompressor extends WebserviceCompressor
 
         if ($response->isOk()) {
             $minifiedCode = $response->getContent();
-            $targetMinFile = $this->fileSet->getOutputDir() . DIRECTORY_SEPARATOR . $version->getFormattedFileName();
+            $targetMinFile = $this->buildOutputPath($version);
 
             if (false !== file_put_contents($targetMinFile, $minifiedCode)) {
                 $outputMinFile = new File($targetMinFile);
