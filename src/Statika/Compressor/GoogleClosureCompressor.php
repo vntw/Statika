@@ -12,7 +12,6 @@
 namespace Statika\Compressor;
 
 use Statika\File\File;
-use Statika\File\FileAggregator;
 use Statika\Version\Version;
 
 /**
@@ -37,14 +36,14 @@ class GoogleClosureCompressor extends BinaryCompressor
      */
     public function compress(Version $version)
     {
-        if (!$this->aggregator instanceof FileAggregator) {
-            throw new \InvalidArgumentException('No aggregator provided!');
-        }
-
         $fileSetAggregate = $this->aggregator->aggregate($this->manager->getOutput());
 
-        $targetRawFile = $this->buildOutputPath($version, true);
-        $targetMinFile = $this->buildOutputPath($version);
+        $outputPath = $this->buildOutputPath();
+
+        $targetRawFile = $outputPath . DIRECTORY_SEPARATOR . '.tmp-' . $version->getFormattedFileName();
+        $targetMinFile = $outputPath . DIRECTORY_SEPARATOR . $version->getFormattedFileName();
+
+        $this->filesystem->mkdir($outputPath);
 
         if (false !== file_put_contents($targetRawFile, $fileSetAggregate)) {
             $outputRawFile = new File($targetRawFile);

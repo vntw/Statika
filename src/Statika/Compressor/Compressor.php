@@ -14,6 +14,7 @@ namespace Statika\Compressor;
 use Statika\Statika;
 use Statika\Version\Version;
 use Statika\File\Aggregator;
+use Symfony\Component\Filesystem\Filesystem;
 use Statika\File\Exception\FileNotFoundException;
 
 /**
@@ -21,6 +22,12 @@ use Statika\File\Exception\FileNotFoundException;
  */
 abstract class Compressor
 {
+    /**
+     *
+     * @var \Symfony\Component\Filesystem\Filesystem
+     */
+    protected $filesystem;
+
     /**
      *
      * @var \Statika\Compressor\CompressManager
@@ -122,6 +129,13 @@ abstract class Compressor
     public function setFileSet($fileSet)
     {
         $this->fileSet = $fileSet;
+
+        return $this;
+    }
+
+    public function setFilesystem(Filesystem $filesystem)
+    {
+        $this->filesystem = $filesystem;
 
         return $this;
     }
@@ -230,23 +244,16 @@ abstract class Compressor
     /**
      * Build the output path/filename
      *
-     * @param  \Statika\Version\Version $version
-     * @param  bool                     $tmp
+     * @param  bool   $tmp
      * @return string
      */
-    public function buildOutputPath(Version $version, $tmp = false)
+    public function buildOutputPath()
     {
-        $path = $this->manager->getConfiguration()->getOutputDir() . DIRECTORY_SEPARATOR;
+        $path = $this->manager->getConfiguration()->getOutputDir();
 
         if ($this->fileSet->getTargetSubDir()) {
-            $path .= $this->fileSet->getTargetSubDir() . DIRECTORY_SEPARATOR;
+            $path .= $this->fileSet->getTargetSubDir();
         }
-
-        if ($tmp) {
-            $path .= '.tmp-';
-        }
-
-        $path .= $version->getFormattedFileName();
 
         return $path;
     }

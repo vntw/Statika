@@ -14,6 +14,7 @@ namespace Statika\Compressor;
 use Statika\Version\Version;
 use Statika\File\FileAggregator;
 use Statika\Configuration\Composition\CompositionConfiguration;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -113,6 +114,7 @@ class CompressManager
             $compressor->setManager($this)
                     ->setAggregator($aggregator)
                     ->setFileSet($fileSet)
+                    ->setFilesystem(new Filesystem())
                     ->compress($version);
 
             $this->output->writeln(
