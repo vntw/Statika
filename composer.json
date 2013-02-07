@@ -24,7 +24,7 @@
     },
     "autoload" : {
         "psr-0" : {
-            "Statika" : "src"
+            "Statika" : ["src", "tests"]
         }
     },
     "bin": ["bin/statika"]
