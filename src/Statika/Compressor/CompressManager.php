@@ -14,20 +14,14 @@ namespace Statika\Compressor;
 use Statika\Version\Version;
 use Statika\File\FileAggregator;
 use Statika\Configuration\Composition\CompositionConfiguration;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * @author Sven Scheffler <schefflor@gmail.com>
  */
 class CompressManager
 {
-    /**
-     *
-     * @var \Symfony\Component\Console\Input\InputInterface
-     */
-    private $input;
-
     /**
      *
      * @var \Symfony\Component\Console\Output\OutputInterface
@@ -46,10 +40,9 @@ class CompressManager
      * @param \Statika\Configuration\Composition\CompositionConfiguration $config
      * @param \Symfony\Component\Console\Output\OutputInterface           $output
      */
-    public function __construct(CompositionConfiguration $config, OutputInterface $output, InputInterface $input)
+    public function __construct(CompositionConfiguration $config, OutputInterface $output)
     {
         $this->configuration = $config;
-        $this->input = $input;
         $this->output = $output;
     }
 
@@ -99,9 +92,10 @@ class CompressManager
         foreach ($fileSets as $fileSet) {
             /* @var $fileSet \Statika\File\FileSet */
 
-            $versionHandler = Version::parseVersionHandler($fileSet->getOutputName());
+            $versionHandler = Version::parseVersionHandler($fileSet->getTargetBase());
+            $targetOutputDir = $this->getConfiguration()->getOutputDir() . $fileSet->getTargetSubDir();
 
-            $version = $versionHandler->getLatestVersion($fileSet->getOutputName(), $fileSet->getOutputDir());
+            $version = $versionHandler->getLatestVersion($fileSet->getTargetBase(), $targetOutputDir);
             $version->increaseVersion();
 
             $compressor = Compressor::getCompressor($fileSet->getCompressorKey());
@@ -120,6 +114,7 @@ class CompressManager
             $compressor->setManager($this)
                     ->setAggregator($aggregator)
                     ->setFileSet($fileSet)
+                    ->setFilesystem(new Filesystem())
                     ->compress($version);
 
             $this->output->writeln(

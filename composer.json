@@ -16,14 +16,15 @@
 	"issues": "https://github.com/venyii/Statika/issues"
     },
     "require" : {
-	"php": ">=5.3.0",
-        "symfony/console": "~2.1@dev",
-	"symfony/finder": "~2.1",
-	"kriswallsmith/buzz": "dev-master"
+		"php": ">=5.3.0",
+        "symfony/console": "~2.1",
+		"symfony/finder": "~2.1",
+		"symfony/filesystem": "~2.1",
+		"kriswallsmith/buzz": "dev-master"
     },
     "autoload" : {
         "psr-0" : {
-            "Statika" : "src"
+            "Statika" : ["src", "tests"]
         }
     },
     "bin": ["bin/statika"]

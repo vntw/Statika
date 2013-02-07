@@ -14,6 +14,7 @@ namespace Statika\Compressor;
 use Statika\Statika;
 use Statika\Version\Version;
 use Statika\File\Aggregator;
+use Symfony\Component\Filesystem\Filesystem;
 use Statika\File\Exception\FileNotFoundException;
 
 /**
@@ -21,6 +22,12 @@ use Statika\File\Exception\FileNotFoundException;
  */
 abstract class Compressor
 {
+    /**
+     *
+     * @var \Symfony\Component\Filesystem\Filesystem
+     */
+    protected $filesystem;
+
     /**
      *
      * @var \Statika\Compressor\CompressManager
@@ -126,6 +133,13 @@ abstract class Compressor
         return $this;
     }
 
+    public function setFilesystem(Filesystem $filesystem)
+    {
+        $this->filesystem = $filesystem;
+
+        return $this;
+    }
+
     /**
      *
      * @return string
@@ -225,6 +239,23 @@ abstract class Compressor
         throw new \OutOfRangeException(
                 sprintf('Compressor \'%f\' doesn´t exist!', $key)
         );
+    }
+
+    /**
+     * Build the output path/filename
+     *
+     * @param  bool   $tmp
+     * @return string
+     */
+    public function buildOutputPath()
+    {
+        $path = $this->manager->getConfiguration()->getOutputDir();
+
+        if ($this->fileSet->getTargetSubDir()) {
+            $path .= $this->fileSet->getTargetSubDir();
+        }
+
+        return $path;
     }
 
 }

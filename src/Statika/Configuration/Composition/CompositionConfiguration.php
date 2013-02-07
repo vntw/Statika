@@ -34,6 +34,18 @@ abstract class CompositionConfiguration extends Configuration
 
     /**
      *
+     * @var string
+     */
+    protected $inputDir;
+
+    /**
+     *
+     * @var string
+     */
+    protected $outputDir;
+
+    /**
+     *
      * @var \Statika\File\FileSet[]
      */
     protected $fileSets = array();
@@ -55,6 +67,48 @@ abstract class CompositionConfiguration extends Configuration
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getInputDir()
+    {
+        return $this->inputDir;
+    }
+
+    /**
+     *
+     * @param  string                                                      $inputDir
+     * @return \Statika\Configuration\Composition\CompositionConfiguration
+     */
+    public function setInputDir($inputDir)
+    {
+        $this->inputDir = $inputDir;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getOutputDir()
+    {
+        return $this->outputDir;
+    }
+
+    /**
+     *
+     * @param  string                                                      $outputDir
+     * @return \Statika\Configuration\Composition\CompositionConfiguration
+     */
+    public function setOutputDir($outputDir)
+    {
+        $this->outputDir = $outputDir;
 
         return $this;
     }
@@ -106,18 +160,18 @@ abstract class CompositionConfiguration extends Configuration
     {
         $this->name = $hash['name'];
         $this->description = $hash['description'];
+        $this->inputDir = $hash['inputDir'];
+        $this->outputDir = $hash['outputDir'];
 
         $fileSets = array();
 
         foreach ($hash['compositions'] as $composition) {
             $fileSet = new FileSet();
-            $fileSet->setOutputName($composition['outputName']);
+            $fileSet->setTargetName($composition['outputName']);
             $fileSet->setCompressorKey($composition['compressor']);
-            $fileSet->setInputDir($composition['inputDir']);
-            $fileSet->setOutputDir($composition['outputDir']);
 
             foreach ($composition['fileSet'] as $file) {
-                $src = $fileSet->getInputDir() . DIRECTORY_SEPARATOR . $file;
+                $src = $this->getInputDir() . $file;
                 $fileSet->appendFile(new File($src));
             }
 

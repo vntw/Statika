@@ -1,4 +1,4 @@
-## Statika... what?
+## Statika... what? [![Build Status](https://travis-ci.org/venyii/Statika.png?branch=master)](https://travis-ci.org/venyii/Statika)
 Statika is a file manager for the static files of your projects. It uses 3rd-party compressors/minifiers like ```YUI Compressor/Google Closure Compiler``` to  combine and compress your CSS/JS files, reduce filesize and increase versions automatically.
 
 ## Project Config

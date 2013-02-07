@@ -39,11 +39,11 @@ class UglifyJsCompressor extends WebserviceCompressor
      */
     public function compress(Version $version)
     {
-        if (!$this->aggregator instanceof \Statika\File\FileAggregator) {
-            throw new \InvalidArgumentException('No aggregator provided!');
-        }
-
         $fileSetAggregate = $this->aggregator->aggregate($this->manager->getOutput());
+
+        $this->manager->getOutput()->writeln(
+                sprintf('<item>- Compressing file: %s</item>', $version->getFormattedFileName())
+        );
 
         $request = new Request(Request::METHOD_POST, $this->serviceUrl);
         $request->setHeaders(array(
@@ -56,8 +56,11 @@ class UglifyJsCompressor extends WebserviceCompressor
         $client->send($request, $response);
 
         if ($response->isOk()) {
+            $outputPath = $this->buildOutputPath();
             $minifiedCode = $response->getContent();
-            $targetMinFile = $this->fileSet->getOutputDir() . DIRECTORY_SEPARATOR . $version->getFormattedFileName();
+            $targetMinFile = $outputPath . DIRECTORY_SEPARATOR . $version->getFormattedFileName();
+
+            $this->filesystem->mkdir($outputPath);
 
             if (false !== file_put_contents($targetMinFile, $minifiedCode)) {
                 $outputMinFile = new File($targetMinFile);

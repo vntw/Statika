@@ -19,6 +19,7 @@ use Statika\File\File;
 class VersionNumber extends Version
 {
     /**
+     * Get the version key
      *
      * @return string
      */
@@ -38,6 +39,7 @@ class VersionNumber extends Version
     }
 
     /**
+     * Get the formatted file name
      *
      * @return string
      */
@@ -46,12 +48,16 @@ class VersionNumber extends Version
         return str_replace($this->getFullVersionKey(), $this->formatPrettyVersion(), $this->getFilePattern());
     }
 
+    /**
+     * Increase the version number
+     */
     public function increaseVersion()
     {
         $this->version++;
     }
 
     /**
+     * Get the regexp for the version
      *
      * @return string
      */
@@ -61,6 +67,7 @@ class VersionNumber extends Version
     }
 
     /**
+     * Get the latest available version
      *
      * @param  string                         $filePattern
      * @param  string                         $outputDir

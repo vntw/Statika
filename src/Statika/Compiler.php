@@ -62,7 +62,10 @@ class Compiler
                 ->ignoreVCS(true)
                 ->name('*.php')
                 ->exclude('Tests')
-                ->in(__DIR__ . '/../../vendor/symfony/')
+                ->in(array(
+                    __DIR__ . '/../../vendor/symfony/',
+                    __DIR__ . '/../../vendor/kriswallsmith/'
+                ));
         ;
 
         foreach ($finder as $file) {
