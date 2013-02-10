@@ -15,23 +15,39 @@ use Statika\File\File;
 use Statika\File\FileSet;
 use Symfony\Component\Finder\Finder;
 
-class FilledFileSetMock extends FileSet {
-
+class FilledFileSetMock extends FileSet
+{
     const TYPE_CSS = 'css';
     const TYPE_JS = 'js';
 
-    private $type;
+    /**
+     * self::TYPE_CSS, self::TYPE_JS
+     *
+     * @var string
+     */
+    protected $type;
 
-    public function __construct($type) {
+    /**
+     *
+     * @param  string                               $type
+     * @return \Statika\Test\Mock\FilledFileSetMock
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($type)
+    {
         if (!in_array($type, array(self::TYPE_CSS, self::TYPE_JS))) {
             throw new \InvalidArgumentException(sprintf('Unknown type: %s', $type));
         }
 
         $this->type = $type;
-        $this->getTestFiles();
+        $this->collectTestFiles();
     }
 
-    private function getTestFiles() {
+    /**
+     * Collect the test files with the specified type
+     */
+    public function collectTestFiles()
+    {
         $staticDir = __DIR__ . '/../../../static/testing/' . $this->type;
 
         $finder = new Finder();

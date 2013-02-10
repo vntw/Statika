@@ -13,8 +13,8 @@ namespace Statika\Test\Version;
 
 use Statika\Version\VersionNumber;
 
-class VersionNumberTest extends \PHPUnit_Framework_TestCase {
-
+class VersionNumberTest extends \PHPUnit_Framework_TestCase
+{
     /**
      * @var VersionNumber
      */
@@ -40,7 +40,8 @@ class VersionNumberTest extends \PHPUnit_Framework_TestCase {
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->version = new VersionNumber();
     }
 
@@ -48,14 +49,15 @@ class VersionNumberTest extends \PHPUnit_Framework_TestCase {
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() {
-        
+    protected function tearDown()
+    {
     }
 
     /**
      * @covers Statika\Version\VersionNumber::getKey
      */
-    public function testGetKey() {
+    public function testGetKey()
+    {
         $this->assertEquals('nr', $this->version->getKey());
     }
 
@@ -63,7 +65,8 @@ class VersionNumberTest extends \PHPUnit_Framework_TestCase {
      *
      * @return array
      */
-    public function getVersionNumbers() {
+    public function getVersionNumbers()
+    {
         return $this->versionNumberData;
     }
 
@@ -71,7 +74,8 @@ class VersionNumberTest extends \PHPUnit_Framework_TestCase {
      * @covers Statika\Version\VersionNumber::getFormattedFileName
      * @dataProvider getVersionNumbers
      */
-    public function testGetFormattedFileName($version) {
+    public function testGetFormattedFileName($version)
+    {
         $this->version->setFilePattern('file.min.{version|nr}.js')
                 ->setVersion($version);
 
@@ -83,7 +87,8 @@ class VersionNumberTest extends \PHPUnit_Framework_TestCase {
     /**
      * @covers Statika\Version\VersionNumber::increaseVersion
      */
-    public function testIncreaseVersion() {
+    public function testIncreaseVersion()
+    {
         $this->version->setVersion(1)->increaseVersion();
         $this->assertEquals(2, $this->version->getVersion());
     }
@@ -91,14 +96,16 @@ class VersionNumberTest extends \PHPUnit_Framework_TestCase {
     /**
      * @covers Statika\Version\VersionNumber::getRegexp
      */
-    public function testGetRegexp() {
+    public function testGetRegexp()
+    {
         $this->assertRegExp('/^' . $this->version->getRegexp() . '$/', '12345');
     }
 
     /**
      * @covers Statika\Version\VersionNumber::getVersionForFile
      */
-    public function testGetLatestVersionForFile() {
+    public function testGetLatestVersionForFile()
+    {
         $staticDir = __DIR__ . '/../../../static/testing/css/min';
         $latestVersion = $this->version->getLatestVersion('yui.min.{version|nr}.css', $staticDir);
 
