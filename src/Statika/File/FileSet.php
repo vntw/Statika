@@ -20,13 +20,13 @@ class FileSet implements \Countable
      *
      * @var string
      */
-    private $compressorKey;
+    protected $compressorKey;
 
     /**
      *
      * @var \Statika\File\File
      */
-    private $files = array();
+    protected $files = array();
 
     /**
      *
@@ -144,6 +144,11 @@ class FileSet implements \Countable
     public function count()
     {
         return count($this->files);
+    }
+
+    public function setFiles(array $files)
+    {
+        $this->files = $files;
     }
 
     /**

@@ -13,8 +13,8 @@ namespace Statika\Test\File;
 
 use Statika\File\FileAggregator;
 
-class FileAggregatorTest extends \PHPUnit_Framework_TestCase {
-
+class FileAggregatorTest extends \PHPUnit_Framework_TestCase
+{
     /**
      * @var FileAggregator
      */
@@ -24,30 +24,25 @@ class FileAggregatorTest extends \PHPUnit_Framework_TestCase {
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->aggregator = new FileAggregator();
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown() {
-        
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testExceptionWithNoFileset() {
+    public function testExceptionWithNoFileset()
+    {
         $this->aggregator->aggregate();
     }
 
     /**
      * @covers Statika\File\FileAggregator::aggregate
      */
-    public function testAggregate() {
-        $fileSet = new \Statika\Test\Mock\FilledFileSetMock('css');
+    public function testAggregate()
+    {
+        $fileSet = $this->getMock('Statika\Test\Mock\FilledFileSetMock', array('__construct'), array('css'));
         $aggregated = $this->aggregator->setFileSet($fileSet)->aggregate();
         $this->assertEquals('file1file2file4file3', $aggregated);
     }
