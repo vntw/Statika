@@ -200,7 +200,7 @@ abstract class Compressor
      */
     public function calculateByteAdvantage()
     {
-        return (round(($this->bytesAfter / $this->bytesBefore) * 100, 2) * - 1) * -1;
+        return round(100 - (($this->bytesAfter / $this->bytesBefore) * 100), 2);
     }
 
     /**

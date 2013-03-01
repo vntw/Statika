@@ -14,6 +14,7 @@ namespace Statika\Compressor;
 use Statika\Version\Version;
 use Statika\File\FileAggregator;
 use Statika\Configuration\Composition\CompositionConfiguration;
+use Statika\Util\FileUtil;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -118,7 +119,10 @@ class CompressManager
                     ->compress($version);
 
             $this->output->writeln(
-                    sprintf('<result><> Successfully compressed the fileset! You saved %s%% in filesize!</result>', $compressor->calculateByteAdvantage())
+                    sprintf('<result><> Successfully compressed the fileset! You saved %s%% in filesize! (%s => %s)</result>',
+                            $compressor->calculateByteAdvantage(),
+                            FileUtil::formatFilesize($compressor->getBytesBefore()),
+                            FileUtil::formatFilesize($compressor->getBytesAfter()))
             );
 
             if ($fileSet !== end($fileSets)) {
