@@ -3,7 +3,7 @@
 /*
  * This file is part of Statika.
  *
- * (c) Sven Scheffler <schefflor@gmail.com>
+ * (c) Sven Scheffler <ven@cersei.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,7 +16,7 @@ use Statika\Configuration\ValidatorInterface;
 use Statika\File\Exception\FileNotFoundException;
 
 /**
- * @author Sven Scheffler <schefflor@gmail.com>
+ * @author Sven Scheffler <ven@cersei.de>
  */
 class CompositionValidator implements ValidatorInterface
 {

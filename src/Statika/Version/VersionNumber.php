@@ -3,7 +3,7 @@
 /*
  * This file is part of Statika.
  *
- * (c) Sven Scheffler <schefflor@gmail.com>
+ * (c) Sven Scheffler <ven@cersei.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,7 +14,7 @@ namespace Statika\Version;
 use Statika\File\File;
 
 /**
- * @author Sven Scheffler <schefflor@gmail.com>
+ * @author Sven Scheffler <ven@cersei.de>
  */
 class VersionNumber extends Version
 {
