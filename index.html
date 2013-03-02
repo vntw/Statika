@@ -28,9 +28,10 @@
 
     <div class="container">
       <section id="main_content">
-        <h2>Statika... what?</h2>
+        <h2>Statika... what? <a href="https://travis-ci.org/venyii/Statika"><img src="https://travis-ci.org/venyii/Statika.png?branch=master" alt="Build Status"></a>
+</h2>
 
-<p>Statika is a file manager for the static files of your projects. It uses 3rd-party compressors/minifiers like <code>YUI Compressor/Google Closure Compiler</code> to  combine and compress your CSS/JS files, reduce filesize and increase versions automatically.</p>
+<p>Statika is a file manager for the static files of your projects. It uses 3rd-party compressors/minifiers  to  combine and compress your CSS/JS files, reduce filesize and increase versions automatically.</p>
 
 <h2>Project Config</h2>
 
@@ -38,18 +39,27 @@
 
 <h2>Available Compressors</h2>
 
-<p>Currently there are two compressors implemented:</p>
+<p>Statika currently supports these compressors:</p>
 
 <ul>
-<li>Google Closure Compiler (<code>closure</code>)</li>
-<li>YUI Compressor (<code>yui</code>)</li>
-</ul><p>More are planned, including webservices like UglifyJS.</p>
+<li>Google Closure Compiler (<code>closure</code>) - JS only (_via binary_)</li>
+<li>UglifyJS (<code>uglifyjs</code>) - JS only (_via webservice_)</li>
+<li>YUI Compressor (<code>yui</code>) - JS &amp; CSS (_via binary_)</li>
+</ul><h2>Available Version Types</h2>
 
-<h2>Getting Started</h2>
+<p>You can specify the output name for each fileset. For now, there are 2 types of versioning. Each time you compress a config, Statika will check if there is a previous minified version and automatically increase the version. (e.g. <em>0001</em> becomes <em>0002</em> ).</p>
 
-<p>First of all you have to install the project dependencies via <a href="http://getcomposer.org">Composer</a>.</p>
+<ul>
+<li>Numbers <code>{version|nr}</code> (e.g. <code>test.min.0001.js</code>)</li>
+<li>MD5 <code>{version|md5}</code> (e.g. <code>test.min.098f6bcd4621d373cade4e832627b4f6.js</code>)</li>
+</ul><h2>Getting Started</h2>
 
-<p>If that´s completed, make sure that the file paths for the binary compressors/minifiers in the <code>src/config.php</code> are correct.</p>
+<p>First of all you have to install the project dependencies via <a href="http://getcomposer.org">Composer</a> using the following command:</p>
+
+<pre><code>$ composer install
+</code></pre>
+
+<p>If that´s completed, <strong>make sure that the file paths for the binary compressors/minifiers in the</strong> <code>src/config.php</code> <strong>are correct.</strong></p>
 
 <h3>There are two ways using Statika:</h3>
 
@@ -60,42 +70,37 @@
 
 <p>To run Statika from source, use the following command:</p>
 
-<pre><code>./bin/statika &lt;command&gt;
+<pre><code>$ ./bin/statika &lt;command&gt;
 </code></pre>
 
 <h4>Compile the source</h4>
 
-<p>To compile the source, use the following command:</p>
+<p>To compile the PHP Archive (_PHAR_) with the following command:</p>
 
-<pre><code>./bin/compile
+<pre><code>$ ./bin/compile
 </code></pre>
 
 <p>If you´d like to use Statika globally, move the compiled file (<code>statika.phar</code>) to your <code>bin</code> dir, e.g. <code>/usr/local/bin/statika</code>, and set the proper file modes using:</p>
 
-<pre><code>sudo mv bin/statika.phar /usr/local/bin/statika
-sudo chmod +x /usr/local/bin/statika
+<pre><code>$ sudo mv bin/statika.phar /usr/local/bin/statika
+$ sudo chmod +x /usr/local/bin/statika
 </code></pre>
 
 <h2>Usage</h2>
 
-<p>To compress a defined config:</p>
-
-<pre><code>$ statika compress /path/to/config.json
-</code></pre>
-
-<p>To validate a defined config:</p>
+<h3>To validate a defined config:</h3>
 
 <pre><code>$ statika validate /path/to/config.json
 </code></pre>
 
-<h2>Versions</h2>
+<p><img src="http://venyii.github.com/Statika/images/st-validate.png" alt=""></p>
 
-<p>You can specify the output name for each fileset. For now, there are 2 ways of versioning. Each time you compress a config, Statika will check if there is a previous minified version and automatically increase it. (e.g. <em>0001 -&gt; 0002</em> )</p>
+<h3>To compress a defined config:</h3>
 
-<ul>
-<li>Numbers <code>{version|nr}</code> (e.g. <code>test.min.0001.js</code>)</li>
-<li>MD5 <code>{version|md5}</code> (e.g. <code>test.min.098f6bcd4621d373cade4e832627b4f6.js</code>)</li>
-</ul>
+<pre><code>$ statika compress /path/to/config.json
+</code></pre>
+
+<p><img src="http://venyii.github.com/Statika/images/st-compress.png" alt=""></p>
       </section>
     </div>
 
