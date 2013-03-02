@@ -6,9 +6,9 @@ The config file describes various things like the compressor(s) you wish to use,
 
 ## Available Compressors
 Statika currently supports these compressors:
-* Google Closure Compiler (```closure```) - JS only (_via binary_)
-* UglifyJS (```uglifyjs```) - JS only (_via webservice_)
-* YUI Compressor (```yui```) - JS & CSS (_via binary_)
+* Google Closure Compiler (```closure```) - JS only ( _via binary_ )
+* UglifyJS (```uglifyjs```) - JS only ( _via webservice_ )
+* YUI Compressor (```yui```) - JS & CSS ( _via binary_ )
 
 ## Available Version Types
 You can specify the output name for each fileset. For now, there are 2 types of versioning. Each time you compress a config, Statika will check if there is a previous minified version and automatically increase the version. (e.g. _0001_ becomes _0002_ ).
@@ -36,7 +36,7 @@ $ ./bin/statika <command>
 ```
 
 #### Compile the source
-To compile the PHP Archive (_PHAR_) with the following command:
+To compile the PHP Archive ( _PHAR_ ) with the following command:
 
 ```
 $ ./bin/compile
